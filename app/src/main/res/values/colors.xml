@@ -12,4 +12,5 @@
     <color name="soft_blue">#91C8E4</color>
     <color name="grayish_yellow">#F6F4EB</color>
     <color name="gray">#BFBFBF</color>
+    <color name="disabled_text_gray">#5a5a5a</color>
 </resources>

@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "617777934844",
+    "firebase_url": "https://carpool-fe2e1-default-rtdb.firebaseio.com",
+    "project_id": "carpool-fe2e1",
+    "storage_bucket": "carpool-fe2e1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617777934844:android:7838cfd85777228b890279",
+        "android_client_info": {
+          "package_name": "com.edu.carpool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617777934844-onqt0jj6m0hhq2qmej6lvj6n3feao319.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNRLs1crTE6p44OLkVAcdbNEzunllr81Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617777934844-onqt0jj6m0hhq2qmej6lvj6n3feao319.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:617777934844:android:4762b6b480b5cec9890279",
+        "android_client_info": {
+          "package_name": "com.edu.huishi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "617777934844-onqt0jj6m0hhq2qmej6lvj6n3feao319.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNRLs1crTE6p44OLkVAcdbNEzunllr81Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "617777934844-onqt0jj6m0hhq2qmej6lvj6n3feao319.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
