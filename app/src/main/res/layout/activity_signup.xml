@@ -43,7 +43,8 @@
                 android:hint="Name"
                 android:drawableLeft="@drawable/ic_baseline_person_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:singleLine="true"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -55,7 +56,8 @@
                 android:hint="Email"
                 android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:singleLine="true"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -68,7 +70,8 @@
                 android:inputType="textPassword"
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="8dp"
-                android:textColor="@color/black"/>
+                android:textColor="@color/black"
+                android:singleLine="true"/>
 
             <Button
                 android:layout_width="wrap_content"

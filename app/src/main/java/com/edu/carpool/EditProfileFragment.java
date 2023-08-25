@@ -1,13 +1,10 @@
 package com.edu.carpool;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
-import com.edu.carpool.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,12 +27,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class EditProfileFragment extends Fragment {
 
-    EditText accName, accPhoneNum;
-    Button saveProfile;
-    String Name, Gender, PhoneNum;
-    String phoneNum1Regex, phoneNum2Regex, number;
-    AutoCompleteTextView autoCompleteTextView;
-    DatabaseReference dbReference;
+    private EditText accName, accPhoneNum;
+    private Button saveProfile;
+    private String Name, Gender, PhoneNum;
+    private String phoneNum1Regex, phoneNum2Regex;
+    private AutoCompleteTextView autoCompleteTextView;
+    private DatabaseReference dbReference;
+    private boolean changesDetected, hasError;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,57 +102,58 @@ public class EditProfileFragment extends Fragment {
                 if (user != null) {
                     String userId = user.getUid();
                     dbReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
-                }
 
-                new UpdateProfileTask().execute();
+                    changesDetected = false;
+                    hasError = false;
+
+                dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if(snapshot.exists()) {
+
+                            if (!Name.equals(accName.getText().toString().trim())) {
+                                dbReference.child("name").setValue(accName.getText().toString());
+                                changesDetected = true;
+                            }
+
+                            if (!Gender.equals(autoCompleteTextView.getText().toString().trim())) {
+                                dbReference.child("gender").setValue(autoCompleteTextView.getText().toString());
+                                changesDetected = true;
+                            }
+
+                            String number = accPhoneNum.getText().toString().trim();
+                            if (number.matches(phoneNum1Regex) || number.matches(phoneNum2Regex)) {
+                                if (!PhoneNum.equals(number)) {
+                                    dbReference.child("phoneNum").setValue(number);
+
+                                    changesDetected = true;
+                                }
+                            } else if (number.isEmpty()) {
+                                accPhoneNum.setError("Required");
+                                hasError = true;
+                            } else {
+                                accPhoneNum.setError("Invalid phone number.\nE.g. 011-1234567");
+                                hasError = true;
+                            }
+
+                            if(hasError){
+                                Toast.makeText(requireContext(), "Invalid data exists", Toast.LENGTH_SHORT).show();
+                            } else if (changesDetected){
+                                Toast.makeText(requireContext(), "Profile Successfully Updated", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+
+                }
             }
         });
+
         return rootView;
     }
-
-    // Save data to database concurrently
-    private class UpdateProfileTask extends AsyncTask<Void, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(Void... voids) {
-            boolean changesDetected = false;
-
-            if (!Name.equals(accName.getText().toString())) {
-                dbReference.child("name").setValue(accName.getText().toString());
-                Name = accName.getText().toString();
-                changesDetected = true;
-            }
-
-            if (!Gender.equals(autoCompleteTextView.getText().toString())) {
-                dbReference.child("gender").setValue(autoCompleteTextView.getText().toString());
-                Gender = autoCompleteTextView.getText().toString();
-                changesDetected = true;
-            }
-
-            String number = accPhoneNum.getText().toString();
-            if (number.matches(phoneNum1Regex) || number.matches(phoneNum2Regex)) {
-                if (!PhoneNum.equals(number)) {
-                    dbReference.child("phoneNum").setValue(number);
-                    PhoneNum = number;
-                    changesDetected = true;
-                }
-            } else if (number.isEmpty()) {
-                accPhoneNum.setError("Required");
-            } else {
-                accPhoneNum.setError("Invalid phone number");
-            }
-
-            return changesDetected;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean changesDetected) {
-            if (changesDetected) {
-                Toast.makeText(requireContext(), "Profile Successfully Updated", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(requireContext(), "No Changes Found", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
 }

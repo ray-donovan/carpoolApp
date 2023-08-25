@@ -12,7 +12,7 @@ import android.widget.Button;
 
 public class PromptUserToLoginFragment extends Fragment {
 
-    Button loginRedirect;
+    private Button loginRedirect;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

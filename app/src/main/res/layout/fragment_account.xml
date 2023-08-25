@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,8 +10,8 @@
 
     <ImageView
         android:id="@+id/profileImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_marginTop="30dp"
         android:src="@drawable/ic_baseline_profilepic_24"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,7 +35,8 @@
         android:id="@+id/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="10dp"
         android:alpha="0.70"
         app:cardCornerRadius="30dp"
         app:cardElevation="25dp"
@@ -217,6 +219,28 @@
         app:layout_constraintTop_toTopOf="@+id/signupDriver_fab" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/editDriver_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:elevation="25dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/editProfile_fab"
+        app:layout_constraintEnd_toEndOf="@+id/editProfile_fab"
+        app:layout_constraintStart_toStartOf="@+id/editProfile_fab"
+        app:srcCompat="@drawable/ic_baseline_edit_note_24"/>
+
+    <TextView
+        android:id="@+id/editDriver_action_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Edit driver profile"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/editDriver_fab"
+        app:layout_constraintEnd_toStartOf="@+id/editDriver_fab"
+        app:layout_constraintTop_toTopOf="@+id/editDriver_fab" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addEmergency_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -232,7 +256,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:text="Add emergency contact"
+        android:text="Emergency contact"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/addEmergency_fab"
         app:layout_constraintEnd_toStartOf="@+id/addEmergency_fab"
