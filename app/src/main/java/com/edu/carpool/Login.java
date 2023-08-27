@@ -22,7 +22,7 @@ public class Login extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private EditText loginEmail, loginPassword;
     private Button loginButton;
-    private TextView forgotPassword, signupRedirect;
+    private TextView signupRedirect;
     private ImageButton close;
 
     @Override
@@ -35,7 +35,6 @@ public class Login extends AppCompatActivity {
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
-        forgotPassword = findViewById(R.id.forget_pass);
         signupRedirect = findViewById(R.id.signup_redirect);
         close = findViewById(R.id.closeBtn);
 
