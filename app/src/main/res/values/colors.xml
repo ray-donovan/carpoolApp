@@ -12,5 +12,8 @@
     <color name="soft_blue">#91C8E4</color>
     <color name="grayish_yellow">#F6F4EB</color>
     <color name="gray">#BFBFBF</color>
+    <color name="light_gray">#d6d4d4</color>
     <color name="disabled_text_gray">#5a5a5a</color>
+    <color name="dark_grey">#5A5A5A</color>
+    <color name="rice">#e8e8e6</color>
 </resources>

@@ -8,7 +8,8 @@
         android:label="@string/appName"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Carpool">
+        android:theme="@style/Theme.Carpool"
+        android:hardwareAccelerated="true">
         <activity
             android:name=".Signup"
             android:exported="false" />
