@@ -16,4 +16,5 @@
     <color name="disabled_text_gray">#5a5a5a</color>
     <color name="dark_grey">#5A5A5A</color>
     <color name="rice">#e8e8e6</color>
+    <color name="splash">#2B9BFF</color>
 </resources>

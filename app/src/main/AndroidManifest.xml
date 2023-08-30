@@ -4,32 +4,30 @@
 
     <application
         android:allowBackup="true"
+        android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/appName"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Carpool"
-        android:hardwareAccelerated="true">
+        android:theme="@style/Theme.Carpool">
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
         <activity
             android:name=".Signup"
             android:exported="false" />
         <activity
             android:name=".Login"
-            android:exported="false"/>
-
-
-
+            android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Splash"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
