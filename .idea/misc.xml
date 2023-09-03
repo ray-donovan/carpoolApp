@@ -27,7 +27,7 @@
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/screen_background.xml" value="0.2301801801801802" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/splashcolor.xml" value="0.1680921052631579" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/activity_login.xml" value="0.25" />
-        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/activity_main.xml" value="0.14651639344262296" />
+        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/activity_signup.xml" value="0.25" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/activity_splash.xml" value="0.16" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/booking_summary.xml" value="0.4" />
@@ -39,6 +39,7 @@
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/history_guest.xml" value="0.25" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/recycler_parent.xml" value="0.1" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/title_bar.xml" value="0.15789473684210525" />
+        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/menu/bottom_menu.xml" value="0.4" />
       </map>
     </option>
   </component>
