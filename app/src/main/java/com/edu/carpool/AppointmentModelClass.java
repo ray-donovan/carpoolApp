@@ -1,10 +1,12 @@
 package com.edu.carpool;
 
-public class ScheduleModelClass {
+public class AppointmentModelClass {
 
-    String from_address, to_address, driver_name, driver_id, date_time, custom_request, user_id;
+    String from_address, to_address, driver_name, driver_id, date_time, custom_request, user_id, status;
 
-    public ScheduleModelClass(String from_address, String to_address, String driver_name, String driver_id, String date_time, String custom_request, String user_id) {
+
+
+    public AppointmentModelClass(String from_address, String to_address, String driver_name, String driver_id, String date_time, String custom_request, String user_id, String status) {
         this.from_address = from_address;
         this.to_address = to_address;
         this.driver_name = driver_name;
@@ -12,6 +14,15 @@ public class ScheduleModelClass {
         this.date_time = date_time;
         this.custom_request = custom_request;
         this.user_id = user_id;
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getUser_id() {
