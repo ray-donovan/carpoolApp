@@ -31,4 +31,10 @@
     <string name = "exp_car_model">Honda City</string>
     <string name = "set">Set</string>
     <string name = "exp_long_text">12, Taman Bandar Baru, Bandar Baru Kampar, Kampar, Perak</string>
+    <string name = "exp_date_and_time">Tue Sep 05, 2023 7:55PM</string>
+    <string name = "exp_custom_req">Drop me off at the entrance</string>
+    <string name = "status">Status:</string>
+    <string name = "exp_status">Pending</string>
+    <string name = "history_guest">Log in now to view your history</string>
+
 </resources>

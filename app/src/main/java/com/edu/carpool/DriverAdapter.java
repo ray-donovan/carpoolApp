@@ -65,6 +65,8 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.MyViewHold
         TextView tv_driver_name, tv_car_model, tv_car_colour, tv_car_plate;
         ImageView profilePic;
 
+        TextView tv_driver_name, tv_car_model, tv_car_colour, tv_car_plate;
+
         public MyViewHolder(View itemView, DriverRecyclerViewInterface recyclerViewInterface) {
             super(itemView);
 
@@ -72,7 +74,9 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.MyViewHold
             tv_car_model = itemView.findViewById(R.id.input_car_model);
             tv_car_colour = itemView.findViewById(R.id.input_car_colour);
             tv_car_plate = itemView.findViewById(R.id.input_car_plate);
+
             profilePic = itemView.findViewById(R.id.profilePic);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
