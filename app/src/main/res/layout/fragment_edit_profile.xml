@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        android:background="@color/white"
+        android:alpha="0.70"
         app:cardCornerRadius="30dp"
         app:cardElevation="25dp">
 
@@ -88,17 +88,16 @@
                 android:singleLine="true"/>
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
                 android:text="Save"
                 android:id="@+id/saveButton"
                 android:textSize="18sp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="30dp"
                 android:paddingHorizontal="30dp"
-                android:paddingVertical="15dp"
                 android:layout_gravity="center"
                 android:backgroundTint="@color/dark_moderate_blue"
-                app:cornerRadius = "30dp"/>
+                app:cornerRadius = "20dp"/>
 
         </LinearLayout>
 
