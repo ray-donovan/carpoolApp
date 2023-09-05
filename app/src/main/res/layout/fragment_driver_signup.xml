@@ -15,7 +15,7 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="60dp"
-            android:background="@color/white"
+            android:alpha="0.75"
             app:cardCornerRadius="30dp"
             app:cardElevation="25dp">
 
@@ -39,7 +39,7 @@
                     android:id="@+id/driver_icNum"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="20dp"
                     android:background="@drawable/custom_edittext"
                     android:drawableLeft="@drawable/ic_baseline_person_24"
                     android:drawablePadding="8dp"
@@ -107,15 +107,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="**IC number and student ID are uneditable upon signed-up."
-                    android:textColor="@color/dark_grey"/>
+                    android:text="**IC number and student ID are uneditable upon signed-up."/>
 
                 <Button
                     android:id="@+id/signup_button"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="30dp"
                     android:backgroundTint="@color/dark_moderate_blue"
                     android:paddingHorizontal="30dp"
                     android:paddingVertical="15dp"

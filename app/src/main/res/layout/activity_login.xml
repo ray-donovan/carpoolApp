@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/screen_background"
     android:gravity="center"
+    android:background="@drawable/screen_background"
     tools:context=".Login">
 
     <androidx.cardview.widget.CardView
@@ -13,121 +14,83 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
-        app:cardElevation="25dp">
+        app:cardElevation="25dp"
+        android:alpha="0.75">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:orientation="vertical"
-            android:background="@color/white"
+            android:layout_gravity="center_horizontal"
             android:padding="24dp">
 
             <ImageButton
-                android:id="@+id/closeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/closeBtn"
                 android:layout_gravity="end"
-                android:background="@color/transparent"
-                android:src="@drawable/ic_baseline_close_24" />
+                android:background="#00000000"
+                android:src="@drawable/ic_baseline_close_24"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Login"
-                android:textAlignment="center"
-                android:textColor="@color/dark_moderate_blue"
                 android:textSize="38sp"
-                android:textStyle="bold" />
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="@color/dark_moderate_blue"/>
 
             <EditText
-                android:id="@+id/login_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:id="@+id/login_email"
                 android:background="@drawable/custom_edittext"
+                android:layout_marginTop="40dp"
+                android:padding="8dp"
+                android:hint="Email"
                 android:drawableLeft="@drawable/ic_baseline_email_24"
                 android:drawablePadding="8dp"
-                android:hint="Email"
-                android:padding="8dp"
-                android:singleLine="true"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:singleLine="true"/>
 
             <EditText
-                android:id="@+id/login_password"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:id="@+id/login_password"
                 android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/ic_baseline_lock_24"
-                android:drawablePadding="8dp"
+                android:layout_marginTop="20dp"
+                android:padding="8dp"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:padding="8dp"
-                android:singleLine="true"
-                android:textColor="@color/black" />
+                android:drawableLeft="@drawable/ic_baseline_lock_24"
+                android:drawablePadding="8dp"
+                android:textColor="@color/black"
+                android:singleLine="true"/>
 
             <Button
-                android:id="@+id/login_button"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:text="Login"
+                android:id="@+id/login_button"
+                android:textSize="18sp"
+                android:layout_marginTop="25dp"
                 android:backgroundTint="@color/dark_moderate_blue"
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="15dp"
-                android:text="Login"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                app:cornerRadius="30dp" />
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
-                android:orientation="horizontal">
-
-                <View
-                    android:id="@+id/divider3"
-                    android:layout_width="50dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginRight="5dp"
-                    android:background="@color/dark_grey" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="OR"
-                    android:textColor="@color/dark_grey" />
-
-                <View
-                    android:id="@+id/divider2"
-                    android:layout_width="50dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:gravity="center_vertical"
-                    android:background="@color/dark_grey" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/signup_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
-                android:background="@drawable/custom_button"
-                android:paddingHorizontal="30dp"
-                android:paddingVertical="9dp"
-                android:text="Signup"
-                android:textSize="18sp"
-                android:textColor="@color/black" />
+                app:cornerRadius = "30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/signup_redirect"
+                android:text="Not yet registered? Sign Up"
+                android:layout_gravity="center"
+                android:padding="8dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/moderate_blue"
+                android:textSize="18sp"/>
 
         </LinearLayout>
 

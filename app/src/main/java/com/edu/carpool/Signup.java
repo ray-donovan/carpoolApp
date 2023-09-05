@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +23,8 @@ public class Signup extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText signupName, signupEmail, signupPassword;
-    private Button signupButton, loginButton;
-    private ImageButton close;
+    private Button signupButton;
+    private TextView loginRedirect;
     private FirebaseDatabase db;
     private DatabaseReference dbReference;
 
@@ -39,8 +38,7 @@ public class Signup extends AppCompatActivity {
         signupEmail = findViewById(R.id.signup_email);
         signupPassword = findViewById(R.id.signup_password);
         signupButton = findViewById(R.id.signup_button);
-        loginButton = findViewById(R.id.login_button);
-        close = findViewById(R.id.closeBtn);
+        loginRedirect = findViewById(R.id.login_redirect);
 
         signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,55 +48,29 @@ public class Signup extends AppCompatActivity {
                 String email = signupEmail.getText().toString();
                 String password = signupPassword.getText().toString();
 
-                if (name.isEmpty()) {
-                    signupName.setError("Required");
-                    signupName.requestFocus();
-                    Toast.makeText(Signup.this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
-
-                } else if (email.isEmpty()) {
-                    signupEmail.setError("Required");
-                    signupEmail.requestFocus();
-                    Toast.makeText(Signup.this, "Email cannot be empty", Toast.LENGTH_SHORT).show();
-
-                } else if (password.isEmpty()) {
-                    signupPassword.setError("Required");
-                    signupPassword.requestFocus();
-                    Toast.makeText(Signup.this, "Password cannot be empty", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    mAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NotNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        FirebaseUser user = mAuth.getCurrentUser();
-                                        saveUserDataToDatabase(user.getUid(), name, email, password);
-                                    } else {
-                                        if (task.getException() != null) {
-                                            String errorMessage = task.getException().getMessage();
-                                            Toast.makeText(Signup.this, "Registration failed: " + errorMessage, Toast.LENGTH_LONG).show();
-                                        }
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NotNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    saveUserDataToDatabase(user.getUid(), name, email, password);
+                                } else {
+                                    if (task.getException() != null) {
+                                        String errorMessage = task.getException().getMessage();
+                                        Toast.makeText(Signup.this, "Registration failed: " + errorMessage, Toast.LENGTH_LONG).show();
                                     }
                                 }
-                            });
-                }
+                            }
+                        });
             }
         });
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        loginRedirect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Signup.this, Login.class);
                 startActivity(intent);
-            }
-        });
-
-        close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Signup.this, MainActivity.class);
-                startActivity(intent);
-                finish();
             }
         });
     }
@@ -115,4 +87,5 @@ public class Signup extends AppCompatActivity {
         Intent intent = new Intent(Signup.this, Login.class);
         startActivity(intent);
     }
+
 }
