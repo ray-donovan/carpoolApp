@@ -36,4 +36,5 @@
     <string name = "status">Status:</string>
     <string name = "exp_status">Pending</string>
     <string name = "history_guest">Log in now to view your history</string>
+
 </resources>

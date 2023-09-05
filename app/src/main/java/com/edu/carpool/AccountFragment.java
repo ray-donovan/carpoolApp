@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -11,8 +13,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,10 +29,14 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AccountFragment extends Fragment {
 
-    private TextView accName, accGender, accPhoneNum, badge;
+    private TextView accName, accGender, accPhoneNum, badge, carNum, carModel, carColour;
+    private CardView driverCV;
+    private String carNumFromDB, carModelFromDB, carColourFromDB;
+    private ImageView profilePic;
     private FloatingActionButton manageFab, logoutFab, driverSignupFab, addEmergencyFab, editProfileFab, editDriverFab;
     private TextView logoutActionText, driverSignupActionText, addEmergencyActionText, editProfileActionText, editDriverActionText;
-    private Boolean isAllFabsVisible;
+    private Boolean isAllFabsVisible, genderIsEmpty, phoneNumIsEmpty;
+    private ConstraintLayout acc_CL;
     private Bundle bundle;
     private FirebaseAuth mAuth;
     private ProgressBar loadingSpinner;
@@ -59,11 +67,19 @@ public class AccountFragment extends Fragment {
         accPhoneNum = rootView.findViewById(R.id.accountPhoneNum);
         manageFab = rootView.findViewById(R.id.manage_fab);
         loadingSpinner = rootView.findViewById(R.id.loading_spinner);
-        loadingSpinner.setVisibility(View.GONE);
         badge = rootView.findViewById(R.id.driverBadge);
+        driverCV = rootView.findViewById(R.id.driverProfileCardView);
+        carNum = rootView.findViewById(R.id.userCarNum);
+        carModel = rootView.findViewById(R.id.userCarModel);
+        carColour = rootView.findViewById(R.id.userCarColour);
+        acc_CL = rootView.findViewById(R.id.accCL);
+        profilePic = rootView.findViewById(R.id.profileImg);
 
-        GetUserDataFromDB();
+        genderIsEmpty = false;
+        phoneNumIsEmpty = false;
+
         checkDriverStatus();
+        GetUserDataFromDB();
 
         logoutFab = rootView.findViewById(R.id.logout_fab);
         driverSignupFab = rootView.findViewById(R.id.signupDriver_fab);
@@ -93,6 +109,8 @@ public class AccountFragment extends Fragment {
 
             // Floating button
             manageFab.setOnClickListener(view -> {
+                acc_CL.setAlpha((float) 0.2);
+
                 if (!isAllFabsVisible) {
                     // when isAllFabsVisible becomes true
                     // make all the action name texts and FABs VISIBLE
@@ -114,6 +132,8 @@ public class AccountFragment extends Fragment {
 
                     isAllFabsVisible = true;
                 } else {
+                    acc_CL.setAlpha((float) 1.0);
+
                     logoutFab.hide();
                     driverSignupFab.hide();
                     addEmergencyFab.hide();
@@ -144,13 +164,18 @@ public class AccountFragment extends Fragment {
             driverSignupFab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    driverSignupFragment driverSignupFragment = new driverSignupFragment();
-                    driverSignupFragment.setArguments(bundle);
-                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_layout, driverSignupFragment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
+
+                    if (genderIsEmpty || phoneNumIsEmpty){
+                        Toast.makeText(requireContext(), "Complete profile setup first", Toast.LENGTH_SHORT).show();
+                    } else {
+                        driverSignupFragment driverSignupFragment = new driverSignupFragment();
+                        driverSignupFragment.setArguments(bundle);
+                        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.frame_layout, driverSignupFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
 
                 }
             });
@@ -207,13 +232,22 @@ public class AccountFragment extends Fragment {
                         if(genderFromDB.isEmpty()) {
                             accGender.setText("Not set");
                             accGender.setTextColor(Color.rgb(191, 191, 191));
+                            profilePic.setImageResource(R.drawable.ic_baseline_profilepic_24);
+                            genderIsEmpty = true;
                         } else {
                             accGender.setText(genderFromDB);
+                        }
+
+                        if (genderFromDB.matches("Female")) {
+                            profilePic.setImageResource(R.drawable.female);
+                        } else if (genderFromDB.matches("Male")) {
+                            profilePic.setImageResource(R.drawable.male);
                         }
 
                         if(phoneNumFromDB.isEmpty()) {
                             accPhoneNum.setText("Not set");
                             accPhoneNum.setTextColor(Color.rgb(191, 191, 191));
+                            phoneNumIsEmpty = true;
                         } else {
                             accPhoneNum.setText(phoneNumFromDB);
                         }
@@ -246,6 +280,18 @@ public class AccountFragment extends Fragment {
 
                     if (snapshot.exists()) {
                         badge.setVisibility(View.VISIBLE);
+                        driverCV.setVisibility(View.VISIBLE);
+
+                        for (DataSnapshot driverSnapshot : snapshot.getChildren()) {
+
+                            carNumFromDB = driverSnapshot.child("carPlateNum").getValue(String.class);
+                            carModelFromDB = driverSnapshot.child("carModel").getValue(String.class);
+                            carColourFromDB = driverSnapshot.child("carColour").getValue(String.class);
+
+                            carNum.setText(carNumFromDB);
+                            carModel.setText(carModelFromDB);
+                            carColour.setText(carColourFromDB);
+                        }
                     }
                 }
 

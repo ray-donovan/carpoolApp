@@ -1,21 +1,60 @@
 package com.edu.carpool;
 
+import static android.media.MediaRecorder.MetricsConstants.HEIGHT;
+
+import android.animation.Animator;
+import android.animation.LayoutTransition;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.media.Image;
+
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import androidx.fragment.app.Fragment;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.InputType;
+
+import android.text.Layout;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.TimePicker;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +62,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import android.widget.Toast;
 
 import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
@@ -36,17 +76,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
+import java.sql.Driver;
+import java.time.DayOfWeek;
+
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
+
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
+import java.util.Date;
+
 import java.util.Locale;
 
 public class RideFragment extends Fragment implements DriverRecyclerViewInterface{
 
     private CardView btn_time_date, btn_cus_req, btn_phone;
+
+    private ImageView iv_driver_selected_profile;
+
     private TextView tv_welcome, tv_get_driver, tv_driver_selected_name, tv_car_selected_plate, tv_car_selected_colour, tv_car_selected_model;
     private ConstraintLayout selected_driver_layout;
     private EditText input_from, input_to;
@@ -79,6 +133,9 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
         cl_to = view.findViewById(R.id.cl_to);
         book_button = view.findViewById(R.id.book_button);
         selected_driver_layout = view.findViewById(R.id.selected_driver_layout);
+
+        iv_driver_selected_profile = view.findViewById(R.id.imageView2);
+
         tv_driver_selected_name = view.findViewById(R.id.tv_driver_selected_name);
         tv_car_selected_plate = view.findViewById(R.id.tv_car_selected_plate);
         tv_car_selected_colour = view.findViewById(R.id.tv_car_selected_colour);
@@ -86,7 +143,6 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
         btn_time_date = view.findViewById(R.id.btn_time_date);
         btn_cus_req = view.findViewById(R.id.btn_cus_req);
         btn_phone = view.findViewById(R.id.btn_phone);
-
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -276,7 +332,9 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
         book_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Do not allow user to book when the input fields are emtpy
+
+                // Do not allow user to book when the input fields are empty
+
                 if (driverModels.size() == 0){
                     // when user is not selected
                     Toast.makeText(requireContext(), "Please select your driver", Toast.LENGTH_SHORT).show();
@@ -333,12 +391,16 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
                             String date_time = scheduled_date;
                             String custom_request = custom_req;
 
+                            String user_id = User.getUid();
+                            writeBookingToDB(from_address, to_address, driver_name, driver_id, date_time, custom_request, user_id);
+
                             // Status of the appointment is set to pending as default, it is
                             // up to the driver to accept or decline then the status
                             // will be set to either accepted or declined by there
                             String status = "Pending";
                             String user_id = User.getUid();
                             writeBookingToDB(from_address, to_address, driver_name, driver_id, date_time, custom_request, user_id, status);
+
                             Toast.makeText(requireContext(), "Your appointment has been booked", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -388,6 +450,9 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
                 for (DataSnapshot driverSnapshot : snapshot.getChildren()){
                     if (driverSnapshot.exists() && driverSnapshot.hasChild("driverID")){
                         String name = driverSnapshot.child("name").getValue(String.class);
+
+                        String gender = driverSnapshot.child("gender").getValue(String.class);
+
                         String phoneNum = driverSnapshot.child("phoneNum").getValue(String.class);
                         String id = driverSnapshot.child("id").getValue(String.class);
                         for (DataSnapshot driverInfo : driverSnapshot.getChildren()){
@@ -396,7 +461,10 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
                                 String carColour = driverInnerInfo.child("carColour").getValue(String.class);
                                 String carPlate = driverInnerInfo.child("carPlateNum").getValue(String.class);
 
+                                userModels.add(new UserModelClass(id, name, gender, phoneNum, null, null));
+
                                 userModels.add(new UserModelClass(id, name, null, phoneNum, null, null));
+
                                 driverModels.add(new driverModelClass(null, null, carPlate, carModel, carColour));
                             }
                             break;
@@ -427,6 +495,7 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
 
             @Override
             public void onCancelled(DatabaseError error) {
+
                 // error
             }
         });
@@ -512,6 +581,7 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     String seq = Long.toString(snapshot.child("seq").getValue(Long.class));
+
                     AppointmentModelClass appointmentModelClass = new AppointmentModelClass(from_address, to_address, driver_name, driver_id, date_time, custom_request, user_id, status);
                     appointmentRef.child(seq).setValue(appointmentModelClass);
 
@@ -541,6 +611,16 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
             tv_get_driver.setVisibility(View.GONE);
 
             selected_driver_layout.setVisibility(View.VISIBLE);
+
+            String gender = userModels.get(position).getGender();
+
+            if ("Female".equals(gender)){
+                iv_driver_selected_profile.setImageResource(R.drawable.female);
+            } else if ("Male".equals(gender)){
+                iv_driver_selected_profile.setImageResource(R.drawable.male);
+            } else {
+                iv_driver_selected_profile.setImageResource(R.drawable.ic_baseline_person_24);
+            }
 
             tv_driver_selected_name.setText(userModels.get(position).getName().toString());
             tv_car_selected_plate.setText(driverModels.get(position).getCarPlateNum().toString());

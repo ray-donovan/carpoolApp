@@ -37,6 +37,17 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.MyViewHold
     public void onBindViewHolder(DriverAdapter.MyViewHolder holder, int position) {
         // assigning values to the views we created in the recycler view layout file
         // based on the position of the recycler view
+
+        String gender = userModels.get(position).getGender();
+
+        if ("Female".equals(gender)){
+            holder.profilePic.setImageResource(R.drawable.female);
+        } else if ("Male".equals(gender)){
+            holder.profilePic.setImageResource(R.drawable.male);
+        } else {
+            holder.profilePic.setImageResource(R.drawable.ic_baseline_person_24);
+        }
+
         holder.tv_driver_name.setText(userModels.get(position).getName());
         holder.tv_car_model.setText(driverModels.get(position).getCarModel());
         holder.tv_car_colour.setText(driverModels.get(position).getCarColour());
@@ -50,8 +61,9 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.MyViewHold
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        // ImageView profilePic;
-        // profilePic not implemented yet, might be done in future
+
+        TextView tv_driver_name, tv_car_model, tv_car_colour, tv_car_plate;
+        ImageView profilePic;
 
         TextView tv_driver_name, tv_car_model, tv_car_colour, tv_car_plate;
 
@@ -62,6 +74,9 @@ public class DriverAdapter extends RecyclerView.Adapter<DriverAdapter.MyViewHold
             tv_car_model = itemView.findViewById(R.id.input_car_model);
             tv_car_colour = itemView.findViewById(R.id.input_car_colour);
             tv_car_plate = itemView.findViewById(R.id.input_car_plate);
+
+            profilePic = itemView.findViewById(R.id.profilePic);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
