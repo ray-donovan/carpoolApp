@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="60dp"
-        android:alpha="0.75"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="70dp"
+        android:background="@color/white"
         app:cardCornerRadius="30dp"
         app:cardElevation="25dp">
 
@@ -53,7 +53,7 @@
                 android:enabled="false"
                 android:inputType="number"
                 android:padding="8dp"
-                android:textColor="@color/disabled_text_gray" />
+                android:textColor="@color/dark_grey" />
 
             <EditText
                 android:id="@+id/edit_studentID"
@@ -65,7 +65,7 @@
                 android:drawablePadding="8dp"
                 android:enabled="false"
                 android:padding="8dp"
-                android:textColor="@color/disabled_text_gray" />
+                android:textColor="@color/dark_grey" />
 
             <EditText
                 android:id="@+id/edit_carPlateNum"
@@ -105,10 +105,10 @@
 
             <Button
                 android:id="@+id/save_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:backgroundTint="@color/dark_moderate_blue"
                 android:paddingHorizontal="30dp"
                 android:paddingVertical="15dp"
