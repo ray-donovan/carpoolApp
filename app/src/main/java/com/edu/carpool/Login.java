@@ -1,6 +1,8 @@
 package com.edu.carpool;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,8 +23,7 @@ public class Login extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private EditText loginEmail, loginPassword;
-    private Button loginButton;
-    private TextView signupRedirect;
+    private Button loginButton, signupButton;
     private ImageButton close;
 
     @Override
@@ -35,7 +36,7 @@ public class Login extends AppCompatActivity {
         loginEmail = findViewById(R.id.login_email);
         loginPassword = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
-        signupRedirect = findViewById(R.id.signup_redirect);
+        signupButton = findViewById(R.id.signup_button);
         close = findViewById(R.id.closeBtn);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -44,27 +45,39 @@ public class Login extends AppCompatActivity {
                 String email = loginEmail.getText().toString();
                 String password = loginPassword.getText().toString();
 
-                // Verify user using email and password
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NotNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Intent intent = new Intent(Login.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    if (task.getException() != null) {
-                                        String errorMessage = task.getException().getMessage();
-                                        Toast.makeText(Login.this, "Login failed: " + errorMessage, Toast.LENGTH_LONG).show();
+                if (email.isEmpty()) {
+                    loginEmail.setError("Required");
+                    loginEmail.requestFocus();
+                    Toast.makeText(Login.this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
+
+                } else if (password.isEmpty()) {
+                    loginPassword.setError("Required");
+                    loginPassword.requestFocus();
+                    Toast.makeText(Login.this, "Email cannot be empty", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    // Verify user using email and password
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NotNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent intent = new Intent(Login.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        if (task.getException() != null) {
+                                            String errorMessage = task.getException().getMessage();
+                                            Toast.makeText(Login.this, "Login failed: " + errorMessage, Toast.LENGTH_LONG).show();
+                                        }
                                     }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
 
-        signupRedirect.setOnClickListener(new View.OnClickListener() {
+        signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(Login.this, Signup.class);
@@ -75,7 +88,9 @@ public class Login extends AppCompatActivity {
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               finish();
+                Intent intent = new Intent(Login.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
     }

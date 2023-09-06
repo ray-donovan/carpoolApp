@@ -106,49 +106,49 @@ public class EditProfileFragment extends Fragment {
                     changesDetected = false;
                     hasError = false;
 
-                dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        if(snapshot.exists()) {
+                    dbReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            if(snapshot.exists()) {
 
-                            if (!Name.equals(accName.getText().toString().trim())) {
-                                dbReference.child("name").setValue(accName.getText().toString());
-                                changesDetected = true;
-                            }
-
-                            if (!Gender.equals(autoCompleteTextView.getText().toString().trim())) {
-                                dbReference.child("gender").setValue(autoCompleteTextView.getText().toString());
-                                changesDetected = true;
-                            }
-
-                            String number = accPhoneNum.getText().toString().trim();
-                            if (number.matches(phoneNum1Regex) || number.matches(phoneNum2Regex)) {
-                                if (!PhoneNum.equals(number)) {
-                                    dbReference.child("phoneNum").setValue(number);
-
+                                if (!Name.equals(accName.getText().toString().trim())) {
+                                    dbReference.child("name").setValue(accName.getText().toString());
                                     changesDetected = true;
                                 }
-                            } else if (number.isEmpty()) {
-                                accPhoneNum.setError("Required");
-                                hasError = true;
-                            } else {
-                                accPhoneNum.setError("Invalid phone number.\nE.g. 011-1234567");
-                                hasError = true;
-                            }
 
-                            if(hasError){
-                                Toast.makeText(requireContext(), "Invalid data exists", Toast.LENGTH_SHORT).show();
-                            } else if (changesDetected){
-                                Toast.makeText(requireContext(), "Profile Successfully Updated", Toast.LENGTH_SHORT).show();
+                                if (!Gender.equals(autoCompleteTextView.getText().toString().trim())) {
+                                    dbReference.child("gender").setValue(autoCompleteTextView.getText().toString());
+                                    changesDetected = true;
+                                }
+
+                                String number = accPhoneNum.getText().toString().trim();
+                                if (number.matches(phoneNum1Regex) || number.matches(phoneNum2Regex)) {
+                                    if (!PhoneNum.equals(number)) {
+                                        dbReference.child("phoneNum").setValue(number);
+
+                                        changesDetected = true;
+                                    }
+                                } else if (number.isEmpty()) {
+                                    accPhoneNum.setError("Required");
+                                    hasError = true;
+                                } else {
+                                    accPhoneNum.setError("Invalid phone number.\nE.g. 011-1234567");
+                                    hasError = true;
+                                }
+
+                                if(hasError){
+                                    Toast.makeText(requireContext(), "Invalid data exists", Toast.LENGTH_SHORT).show();
+                                } else if (changesDetected){
+                                    Toast.makeText(requireContext(), "Profile Successfully Updated", Toast.LENGTH_SHORT).show();
+                                }
                             }
                         }
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError error) {
+                        @Override
+                        public void onCancelled(DatabaseError error) {
 
-                    }
-                });
+                        }
+                    });
 
                 }
             }
