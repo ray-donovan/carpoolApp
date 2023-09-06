@@ -39,7 +39,14 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
         holder.tv_history_from_input.setText(appointmentModelClass.get(position).getFrom_address());
         holder.tv_history_to_input.setText(appointmentModelClass.get(position).getTo_address());
         holder.tv_history_to_schedule_input.setText(appointmentModelClass.get(position).getDate_time());
-        holder.tv_history_custom_input.setText(appointmentModelClass.get(position).getCustom_request());
+        if (appointmentModelClass.get(position).getCustom_request() == null){
+            holder.tv_history_custom.setVisibility(View.GONE);
+            holder.tv_history_custom_input.setVisibility(View.GONE);
+        } else{
+            holder.tv_history_custom.setVisibility(View.VISIBLE);
+            holder.tv_history_custom_input.setVisibility(View.VISIBLE);
+            holder.tv_history_custom_input.setText(appointmentModelClass.get(position).getCustom_request());
+        }
         holder.tv_history_status_input.setText(appointmentModelClass.get(position).getStatus());
     }
 
@@ -50,18 +57,22 @@ public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
         TextView tv_history_driver_name, tv_history_from_input, tv_history_to_input, tv_history_to_schedule_input,
-                tv_history_custom_input, tv_history_status_input;
+                tv_history_custom_input, tv_history_status_input, tv_history_custom;
         public MyViewHolder(View itemView,AppointmentRecyclerViewInterface appointmentRecyclerViewInterface) {
             super(itemView);
-
+            String context = appointmentRecyclerViewInterface.getClass().toString();
             tv_history_driver_name = itemView.findViewById(R.id.tv_history_driver_name);
             tv_history_from_input = itemView.findViewById(R.id.tv_history_from_input);
             tv_history_to_input = itemView.findViewById(R.id.tv_history_to_input);
             tv_history_to_schedule_input = itemView.findViewById(R.id.tv_history_to_schedule_input);
             tv_history_custom_input = itemView.findViewById(R.id.tv_history_custom_input);
             tv_history_status_input = itemView.findViewById(R.id.tv_history_status_input);
+            tv_history_custom = itemView.findViewById(R.id.tv_history_custom);
+
+            if (context.contains("DriverAppointment")){
+
+            }
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

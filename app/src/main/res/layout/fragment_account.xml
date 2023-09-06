@@ -284,6 +284,28 @@
         app:layout_constraintEnd_toStartOf="@+id/editProfile_fab"
         app:layout_constraintTop_toTopOf="@+id/editProfile_fab"/>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/appointment_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:elevation="25dp"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toTopOf="@+id/editDriver_fab"
+        app:layout_constraintEnd_toEndOf="@+id/editDriver_fab"
+        app:layout_constraintStart_toStartOf="@+id/editDriver_fab"
+        app:srcCompat="@drawable/ic_baseline_directions_car_24" />
+
+    <TextView
+        android:id="@+id/appointment_action_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Appointment"
+        android:layout_marginEnd="8dp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/editDriver_fab"
+        app:layout_constraintEnd_toStartOf="@+id/appointment_fab"
+        app:layout_constraintTop_toTopOf="@+id/appointment_fab" />
+
     <ProgressBar
         android:id="@+id/loading_spinner"
         android:layout_width="wrap_content"
@@ -295,5 +317,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

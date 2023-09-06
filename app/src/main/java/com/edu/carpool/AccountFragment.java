@@ -26,8 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 public class AccountFragment extends Fragment {
 
     private TextView accName, accGender, accPhoneNum, badge;
-    private FloatingActionButton manageFab, logoutFab, driverSignupFab, addEmergencyFab, editProfileFab, editDriverFab;
-    private TextView logoutActionText, driverSignupActionText, addEmergencyActionText, editProfileActionText, editDriverActionText;
+    private FloatingActionButton manageFab, logoutFab, driverSignupFab, addEmergencyFab, editProfileFab, editDriverFab, appointmentFab;
+    private TextView logoutActionText, driverSignupActionText, addEmergencyActionText, editProfileActionText, editDriverActionText, appointmentActionText;
     private Boolean isAllFabsVisible;
     private Bundle bundle;
     private FirebaseAuth mAuth;
@@ -70,24 +70,28 @@ public class AccountFragment extends Fragment {
         addEmergencyFab = rootView.findViewById(R.id.addEmergency_fab);
         editProfileFab = rootView.findViewById(R.id.editProfile_fab);
         editDriverFab = rootView.findViewById(R.id.editDriver_fab);
+        appointmentFab = rootView.findViewById(R.id.appointment_fab);
 
         logoutActionText = rootView.findViewById(R.id.logout_action_text);
         driverSignupActionText = rootView.findViewById(R.id.signupDriver_action_text);
         addEmergencyActionText = rootView.findViewById(R.id.addEmergency_action_text);
         editProfileActionText = rootView.findViewById(R.id.editProfile_action_text);
         editDriverActionText = rootView.findViewById(R.id.editDriver_action_text);
+        appointmentActionText = rootView.findViewById(R.id.appointment_action_text);
 
         logoutFab.setVisibility(View.GONE);
         driverSignupFab.setVisibility(View.GONE);
         addEmergencyFab.setVisibility(View.GONE);
         editProfileFab.setVisibility(View.GONE);
         editDriverFab.setVisibility(View.GONE);
+        appointmentFab.setVisibility(View.GONE);
 
         logoutActionText.setVisibility(View.GONE);
         driverSignupActionText.setVisibility(View.GONE);
         addEmergencyActionText.setVisibility(View.GONE);
         editProfileActionText.setVisibility(View.GONE);
         editDriverActionText.setVisibility(View.GONE);
+        appointmentActionText.setVisibility(View.GONE);
 
         isAllFabsVisible = false;
 
@@ -103,6 +107,8 @@ public class AccountFragment extends Fragment {
                     if(badge.getVisibility() == View.VISIBLE){
                         editDriverFab.show();
                         editDriverActionText.setVisibility(View.VISIBLE);
+                        appointmentFab.show();
+                        appointmentActionText.setVisibility(View.VISIBLE);
                     } else {
                         driverSignupFab.show();
                         driverSignupActionText.setVisibility(View.VISIBLE);
@@ -119,12 +125,14 @@ public class AccountFragment extends Fragment {
                     addEmergencyFab.hide();
                     editProfileFab.hide();
                     editDriverFab.hide();
+                    appointmentFab.hide();
 
                     logoutActionText.setVisibility(View.GONE);
                     driverSignupActionText.setVisibility(View.GONE);
                     addEmergencyActionText.setVisibility(View.GONE);
                     editProfileActionText.setVisibility(View.GONE);
                     editDriverActionText.setVisibility(View.GONE);
+                    appointmentActionText.setVisibility(View.GONE);
 
                     isAllFabsVisible = false;
                 }
@@ -175,6 +183,18 @@ public class AccountFragment extends Fragment {
                     FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
                     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                     fragmentTransaction.replace(R.id.frame_layout, editDriverProfileFragment);
+                    fragmentTransaction.addToBackStack(null);
+                    fragmentTransaction.commit();
+                }
+            });
+
+            appointmentFab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DriverAppointment driverAppointment = new DriverAppointment();
+                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.frame_layout, driverAppointment);
                     fragmentTransaction.addToBackStack(null);
                     fragmentTransaction.commit();
                 }
