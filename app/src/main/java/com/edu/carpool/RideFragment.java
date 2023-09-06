@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ import java.util.Locale;
 public class RideFragment extends Fragment implements DriverRecyclerViewInterface{
 
     private CardView btn_time_date, btn_cus_req, btn_phone;
+    private ImageView iv_driver_selected_profile;
     private TextView tv_welcome, tv_get_driver, tv_driver_selected_name, tv_car_selected_plate, tv_car_selected_colour, tv_car_selected_model;
     private ConstraintLayout selected_driver_layout;
     private EditText input_from, input_to;
@@ -79,6 +81,7 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
         cl_to = view.findViewById(R.id.cl_to);
         book_button = view.findViewById(R.id.book_button);
         selected_driver_layout = view.findViewById(R.id.selected_driver_layout);
+        iv_driver_selected_profile = view.findViewById(R.id.imageView2);
         tv_driver_selected_name = view.findViewById(R.id.tv_driver_selected_name);
         tv_car_selected_plate = view.findViewById(R.id.tv_car_selected_plate);
         tv_car_selected_colour = view.findViewById(R.id.tv_car_selected_colour);
@@ -388,6 +391,7 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
                 for (DataSnapshot driverSnapshot : snapshot.getChildren()){
                     if (driverSnapshot.exists() && driverSnapshot.hasChild("driverID")){
                         String name = driverSnapshot.child("name").getValue(String.class);
+                        String gender = driverSnapshot.child("gender").getValue(String.class);
                         String phoneNum = driverSnapshot.child("phoneNum").getValue(String.class);
                         String id = driverSnapshot.child("id").getValue(String.class);
                         for (DataSnapshot driverInfo : driverSnapshot.getChildren()){
@@ -396,7 +400,7 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
                                 String carColour = driverInnerInfo.child("carColour").getValue(String.class);
                                 String carPlate = driverInnerInfo.child("carPlateNum").getValue(String.class);
 
-                                userModels.add(new UserModelClass(id, name, null, phoneNum, null, null));
+                                userModels.add(new UserModelClass(id, name, gender, phoneNum, null, null));
                                 driverModels.add(new driverModelClass(null, null, carPlate, carModel, carColour));
                             }
                             break;
@@ -541,6 +545,16 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
             tv_get_driver.setVisibility(View.GONE);
 
             selected_driver_layout.setVisibility(View.VISIBLE);
+
+            String gender = userModels.get(position).getGender();
+
+            if ("Female".equals(gender)){
+                iv_driver_selected_profile.setImageResource(R.drawable.female);
+            } else if ("Male".equals(gender)){
+                iv_driver_selected_profile.setImageResource(R.drawable.male);
+            } else {
+                iv_driver_selected_profile.setImageResource(R.drawable.ic_baseline_person_24);
+            }
 
             tv_driver_selected_name.setText(userModels.get(position).getName().toString());
             tv_car_selected_plate.setText(driverModels.get(position).getCarPlateNum().toString());
