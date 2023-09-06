@@ -38,4 +38,8 @@
     <string name="history_guest">Log in now to view your history</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
+    <string name="empty_history">Your history is empty, start your journey now</string>
+    <string name="empty_app">You do not have any appointment for right now</string>
+    <string name="choice1">Yours</string>
+    <string name="choice2">Customer\'s</string>
 </resources>

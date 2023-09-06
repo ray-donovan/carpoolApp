@@ -3,16 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/drawable/custom_button.xml" value="0.2755208333333333" />
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/drawable/custom_edittext.xml" value="0.2755208333333333" />
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/layout/activity_login.xml" value="0.1526268115942029" />
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/layout/activity_signup.xml" value="0.1526268115942029" />
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/layout/fragment_account.xml" value="0.264" />
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/layout/fragment_driver_signup.xml" value="0.1526268115942029" />
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/layout/fragment_edit_driver_profile.xml" value="0.1526268115942029" />
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/layout/fragment_edit_profile.xml" value="0.1526268115942029" />
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/layout/fragment_prompt_user_to_login.xml" value="0.1526268115942029" />
-        <entry key="..\:/Desktop/v2.0/carpoolApp-main/app/src/main/res/layout/fragment_ride.xml" value="0.1526268115942029" />
         <entry key="..\:/Users/HuiShi/AndroidStudioProjects/Carpool/app/src/main/res/drawable/custom_edittext.xml" value="0.2755208333333333" />
         <entry key="..\:/Users/HuiShi/AndroidStudioProjects/Carpool/app/src/main/res/drawable/ic_baseline_gender_24.xml" value="0.2755208333333333" />
         <entry key="..\:/Users/HuiShi/AndroidStudioProjects/Carpool/app/src/main/res/drawable/ic_baseline_person_pin_24.xml" value="0.2755208333333333" />
@@ -27,8 +17,7 @@
         <entry key="..\:/Users/HuiShi/AndroidStudioProjects/Carpool/app/src/main/res/layout/fragment_edit_driver_profile.xml" value="0.264" />
         <entry key="..\:/Users/HuiShi/AndroidStudioProjects/Carpool/app/src/main/res/layout/fragment_edit_profile.xml" value="0.264" />
         <entry key="..\:/Users/HuiShi/AndroidStudioProjects/Carpool/app/src/main/res/layout/fragment_prompt_user_to_login.xml" value="0.2545289855072464" />
-        <entry key="..\:/Users/HuiShi/carpoolApp/app/src/main/res/layout/activity_login.xml" value="0.1480978260869565" />
-        <entry key="..\:/Users/HuiShi/carpoolApp/app/src/main/res/layout/fragment_ride.xml" value="0.1480978260869565" />
+        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/custom_button.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/driver_dialog.xml" value="0.1680921052631579" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/ic_baseline_gender_24.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/ic_baseline_id_24.xml" value="0.26614583333333336" />
@@ -37,8 +26,10 @@
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/ridemenu.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/round_outline.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/rounded_button.xml" value="0.17743055555555556" />
+        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/rounded_ok.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/screen_background.xml" value="0.2301801801801802" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/splashcolor.xml" value="0.1680921052631579" />
+        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/thumb_selector.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/activity_signup.xml" value="0.25" />
@@ -46,9 +37,11 @@
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/booking_summary.xml" value="0.4" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/date_time_picker.xml" value="0.176" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/driver_info.xml" value="0.4" />
+        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/dropdown_item.xml" value="0.1328125" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/fragment_account.xml" value="0.4" />
-        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/fragment_driver_appointment.xml" value="0.1" />
-        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/fragment_history.xml" value="0.21875" />
+        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/fragment_driver_appointment.xml" value="0.2" />
+        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/fragment_history.xml" value="0.264" />
+        <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/fragment_history_index.xml" value="0.10416666666666667" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/fragment_ride.xml" value="0.2" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/fragment_schedule.xml" value="0.25" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/layout/history_cardview.xml" value="0.4" />

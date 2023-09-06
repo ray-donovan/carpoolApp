@@ -29,17 +29,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class AccountFragment extends Fragment {
 
-<<<<<<< HEAD
-    private TextView accName, accGender, accPhoneNum, badge;
-    private FloatingActionButton manageFab, logoutFab, driverSignupFab, addEmergencyFab, editProfileFab, editDriverFab, appointmentFab;
-    private TextView logoutActionText, driverSignupActionText, addEmergencyActionText, editProfileActionText, editDriverActionText, appointmentActionText;
-    private Boolean isAllFabsVisible;
-||||||| bae9fa9
-    private TextView accName, accGender, accPhoneNum, badge;
-    private FloatingActionButton manageFab, logoutFab, driverSignupFab, addEmergencyFab, editProfileFab, editDriverFab;
-    private TextView logoutActionText, driverSignupActionText, addEmergencyActionText, editProfileActionText, editDriverActionText;
-    private Boolean isAllFabsVisible;
-=======
     private TextView accName, accGender, accPhoneNum, badge, carNum, carModel, carColour;
     private CardView driverCV;
     private String carNumFromDB, carModelFromDB, carColourFromDB;
@@ -48,7 +37,6 @@ public class AccountFragment extends Fragment {
     private TextView logoutActionText, driverSignupActionText, addEmergencyActionText, editProfileActionText, editDriverActionText, appointmentActionText;
     private Boolean isAllFabsVisible, genderIsEmpty, phoneNumIsEmpty;
     private ConstraintLayout acc_CL;
->>>>>>> 15650c4f951ba84b6812f4fccad40e8f1cd052d8
     private Bundle bundle;
     private FirebaseAuth mAuth;
     private ProgressBar loadingSpinner;
@@ -127,32 +115,12 @@ public class AccountFragment extends Fragment {
         manageFab.setOnClickListener(view -> {
             acc_CL.setAlpha((float) 0.2);
 
-<<<<<<< HEAD
-                    if(badge.getVisibility() == View.VISIBLE){
-                        editDriverFab.show();
-                        editDriverActionText.setVisibility(View.VISIBLE);
-                        appointmentFab.show();
-                        appointmentActionText.setVisibility(View.VISIBLE);
-                    } else {
-                        driverSignupFab.show();
-                        driverSignupActionText.setVisibility(View.VISIBLE);
-                    }
-||||||| bae9fa9
-                    if(badge.getVisibility() == View.VISIBLE){
-                        editDriverFab.show();
-                        editDriverActionText.setVisibility(View.VISIBLE);
-                    } else {
-                        driverSignupFab.show();
-                        driverSignupActionText.setVisibility(View.VISIBLE);
-                    }
-=======
             if (!isAllFabsVisible) {
                 // when isAllFabsVisible becomes true
                 // make all the action name texts and FABs VISIBLE
                 logoutFab.show();
                 addEmergencyFab.show();
                 editProfileFab.show();
->>>>>>> 15650c4f951ba84b6812f4fccad40e8f1cd052d8
 
                 // Display according to user's driver status
                 if(badge.getVisibility() == View.VISIBLE){
@@ -162,40 +130,8 @@ public class AccountFragment extends Fragment {
                     appointmentActionText.setVisibility(View.VISIBLE);
 
                 } else {
-<<<<<<< HEAD
-                    logoutFab.hide();
-                    driverSignupFab.hide();
-                    addEmergencyFab.hide();
-                    editProfileFab.hide();
-                    editDriverFab.hide();
-                    appointmentFab.hide();
-
-                    logoutActionText.setVisibility(View.GONE);
-                    driverSignupActionText.setVisibility(View.GONE);
-                    addEmergencyActionText.setVisibility(View.GONE);
-                    editProfileActionText.setVisibility(View.GONE);
-                    editDriverActionText.setVisibility(View.GONE);
-                    appointmentActionText.setVisibility(View.GONE);
-
-                    isAllFabsVisible = false;
-||||||| bae9fa9
-                    logoutFab.hide();
-                    driverSignupFab.hide();
-                    addEmergencyFab.hide();
-                    editProfileFab.hide();
-                    editDriverFab.hide();
-
-                    logoutActionText.setVisibility(View.GONE);
-                    driverSignupActionText.setVisibility(View.GONE);
-                    addEmergencyActionText.setVisibility(View.GONE);
-                    editProfileActionText.setVisibility(View.GONE);
-                    editDriverActionText.setVisibility(View.GONE);
-
-                    isAllFabsVisible = false;
-=======
                     driverSignupFab.show();
                     driverSignupActionText.setVisibility(View.VISIBLE);
->>>>>>> 15650c4f951ba84b6812f4fccad40e8f1cd052d8
                 }
 
                 logoutActionText.setVisibility(View.VISIBLE);
@@ -267,23 +203,19 @@ public class AccountFragment extends Fragment {
             }
         });
 
-<<<<<<< HEAD
-            appointmentFab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DriverAppointment driverAppointment = new DriverAppointment();
-                    FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.frame_layout, driverAppointment);
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.commit();
-                }
-            });
+        appointmentFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DriverAppointment driverAppointment = new DriverAppointment();
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, driverAppointment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
-            return rootView;
-||||||| bae9fa9
-            return rootView;
-=======
+
         editDriverFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -295,9 +227,7 @@ public class AccountFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
         return rootView;
->>>>>>> 15650c4f951ba84b6812f4fccad40e8f1cd052d8
     }
 
     // Retrieve and display user data

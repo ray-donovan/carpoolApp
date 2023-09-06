@@ -18,4 +18,6 @@
     <color name="rice">#e8e8e6</color>
     <color name="splash">#2B9BFF</color>
     <color name="transparent">#00000000</color>
+    <color name="ok_green">#64ad6a</color>
+    <color name="decline_red">#dd3439</color>
 </resources>

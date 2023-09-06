@@ -60,6 +60,7 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
     private FirebaseDatabase db;
     private DatabaseReference dbReference;
     private int driver_pos;
+    private String fullname;
 
     // Store instances of the driver model class
     ArrayList<driverModelClass> driverModels = new ArrayList<>();
@@ -335,13 +336,14 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
                             String driver_id = userModels.get(driver_pos).getID();
                             String date_time = scheduled_date;
                             String custom_request = custom_req;
+                            String username = fullname;
 
                             // Status of the appointment is set to pending as default, it is
                             // up to the driver to accept or decline then the status
                             // will be set to either accepted or declined by there
                             String status = "Pending";
                             String user_id = User.getUid();
-                            writeBookingToDB(from_address, to_address, driver_name, driver_id, date_time, custom_request, user_id, status);
+                            writeBookingToDB(from_address, to_address, driver_name, driver_id, date_time, custom_request, user_id, status, username);
                             Toast.makeText(requireContext(), "Your appointment has been booked", Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -365,6 +367,7 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
                     if (snapshot.exists()){
                         //Only get first part of the name "Jason Lee" = "Jason"
                         String[] name = (snapshot.child("name").getValue(String.class)).split("\\s+");
+                        fullname = snapshot.child("name").getValue(String.class);
                         String firstName = name[0];
                         tv_welcome.setText("Welcome, " + firstName);
                     }
@@ -507,7 +510,7 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
         scale.start();
     }
 
-    private void writeBookingToDB(String from_address, String to_address, String driver_name, String driver_id, String date_time, String custom_request, String user_id, String status){
+    private void writeBookingToDB(String from_address, String to_address, String driver_name, String driver_id, String date_time, String custom_request, String user_id, String status, String username){
 
         // get sequence from firebase
         DatabaseReference appointmentRef = FirebaseDatabase.getInstance().getReference("appointment");
@@ -516,7 +519,7 @@ public class RideFragment extends Fragment implements DriverRecyclerViewInterfac
             public void onDataChange(DataSnapshot snapshot) {
                 if (snapshot.exists()){
                     String seq = Long.toString(snapshot.child("seq").getValue(Long.class));
-                    AppointmentModelClass appointmentModelClass = new AppointmentModelClass(from_address, to_address, driver_name, driver_id, date_time, custom_request, user_id, status);
+                    AppointmentModelClass appointmentModelClass = new AppointmentModelClass(from_address, to_address, driver_name, driver_id, date_time, custom_request, user_id, status, username);
                     appointmentRef.child(seq).setValue(appointmentModelClass);
 
                     // increment seq value

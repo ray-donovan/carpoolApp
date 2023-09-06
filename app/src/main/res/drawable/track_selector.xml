@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:visible="true"
+    android:dither = "true"
+    android:shape="rectangle"
+    android:useLevel="false">
+<!--    <item android:color="@color/white" android:state_checked="false" />-->
+<!--    <item android:color="@color/white" android:state_checked="true" />-->
+    <solid android:color="@color/dark_grey"/>
+    <corners android:radius="16dp"/>
+    <size
+        android:width= "100dp"
+        android:height= "40dp" />
+</shape>
