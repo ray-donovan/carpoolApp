@@ -3,6 +3,8 @@ package com.edu.carpool;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class editDriverProfileFragment extends Fragment {
 
     private EditText identityNum, studentID, plateNum, model, colour;
-    private TextView ID;
+    private TextView ID, linkAddEdit;
     private Button saveBtn;
     private DatabaseReference userRef;
     private String identityNumFromDB, studentIDFromDB, plateNumFromDB, modelFromDB, colourFromDB;
@@ -42,6 +44,7 @@ public class editDriverProfileFragment extends Fragment {
         model = rootView.findViewById(R.id.edit_carModel);
         colour = rootView.findViewById(R.id.edit_carColour);
         saveBtn = rootView.findViewById(R.id.save_button);
+        linkAddEdit = rootView.findViewById(R.id.addEdit);
 
         // Retrieve and display data from database
         FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
@@ -149,6 +152,23 @@ public class editDriverProfileFragment extends Fragment {
                     });
 
                 }
+            }
+        });
+
+        linkAddEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putString("users", userRef.getParent().getKey());
+                bundle.putString("driverID", ID.getText().toString().substring(4));
+
+                addDriverDetailsFragment addDriverDetailsFragment = new addDriverDetailsFragment();
+                addDriverDetailsFragment.setArguments(bundle);
+                FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.frame_layout, addDriverDetailsFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 
