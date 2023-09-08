@@ -45,4 +45,5 @@
     <string name="view_schedule">View your driver\'s schedule</string>
     <string name="driver_list">Search Driver</string>
     <string name="driver_schedule">Schedule</string>
+    <string name = "nan">Not Available</string>
 </resources>

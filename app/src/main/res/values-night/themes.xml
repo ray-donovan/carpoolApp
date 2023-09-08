@@ -40,4 +40,16 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">8dp</item>
     </style>
+
+    <style name="MyDialogTheme" parent="android:Theme.Dialog">
+        <!-- Fill the screen -->
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+
+        <!-- No backgrounds, titles or window float -->
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+
+    </style>
 </resources>

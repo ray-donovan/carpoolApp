@@ -61,17 +61,18 @@ import java.util.regex.Pattern;
 
 public class addDriverDetailsFragment extends Fragment {
 
-    private TextView ID, show, errorMsg, errorMsg2;
-    private ImageButton loadImageBtn, loadImageBtn2, snapImageBtn, snapImageBtn2;
+    private TextView ID, show, errorMsg, errorMsg2, errorMsg3;
+    private ImageButton loadImageBtn, loadImageBtn2, loadImageBtn3, snapImageBtn, snapImageBtn2, snapImageBtn3;
     private Button confirmBtn;
-    private ImageView displayImage, displayImage2;
+    private ImageView displayImage, displayImage2, displayImage3;
     private DatabaseReference userRef, imgRef;
-    private Drawable drawable, drawable2;
-    private Uri targetUri, targetUri2;
-    private byte[] byte1, byte2;
+    private Drawable drawable, drawable2, drawable3;
+    private Uri targetUri, targetUri2, targetUri3;
+    private byte[] byte1, byte2, byte3;
 
     static final int REQUEST_IMAGE_CAPTURE = 3;
     static final int REQUEST_IMAGE_CAPTURE2 = 4;
+    static final int REQUEST_IMAGE_CAPTURE3 = 5;
 
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
@@ -98,6 +99,10 @@ public class addDriverDetailsFragment extends Fragment {
         loadImageBtn2 = rootView.findViewById(R.id.choose2);
         snapImageBtn2 = rootView.findViewById(R.id.camera2);
         displayImage2 = rootView.findViewById(R.id.select_image2);
+        errorMsg3 = rootView.findViewById(R.id.message3);
+        loadImageBtn3 = rootView.findViewById(R.id.choose3);
+        snapImageBtn3 = rootView.findViewById(R.id.camera3);
+        displayImage3 = rootView.findViewById(R.id.select_image3);
 
         pref = requireContext().getSharedPreferences("DriverPref", Context.MODE_PRIVATE);
         editor = pref.edit();
@@ -124,8 +129,11 @@ public class addDriverDetailsFragment extends Fragment {
 
                                     String drvLicenseURLFromDB = imageSnapshot.child("licenseUrl").getValue(String.class);
                                     String roadTaxURLFromDB = imageSnapshot.child("roadtaxUrl").getValue(String.class);
+                                    String timetableURLFromDB = imageSnapshot.child("timetableUrl").getValue(String.class);
                                     String drvLicenseSnapURLFromDB = imageSnapshot.child("licenseByte").getValue(String.class);
                                     String roadTaxSnapURLFromDB = imageSnapshot.child("roadtaxByte").getValue(String.class);
+                                    String timetableSnapURLFromDB = imageSnapshot.child("timetableByte").getValue(String.class);
+
 
                                     if (drvLicenseURLFromDB == null) {
                                         Picasso.get().load(drvLicenseSnapURLFromDB).into(displayImage);
@@ -134,12 +142,22 @@ public class addDriverDetailsFragment extends Fragment {
                                         } else if (roadTaxSnapURLFromDB == null) {
                                             Picasso.get().load(roadTaxURLFromDB).into(displayImage2);
                                         }
+                                        if (timetableURLFromDB == null) {
+                                            Picasso.get().load(timetableSnapURLFromDB).into(displayImage3);
+                                        } else if (timetableSnapURLFromDB == null) {
+                                            Picasso.get().load(timetableURLFromDB).into(displayImage3);
+                                        }
                                     } else if (drvLicenseSnapURLFromDB == null) {
                                         Picasso.get().load(drvLicenseURLFromDB).into(displayImage);
                                         if (roadTaxURLFromDB == null) {
                                             Picasso.get().load(roadTaxSnapURLFromDB).into(displayImage2);
                                         } else if (roadTaxSnapURLFromDB == null) {
                                             Picasso.get().load(roadTaxURLFromDB).into(displayImage2);
+                                        }
+                                        if (timetableURLFromDB == null) {
+                                            Picasso.get().load(timetableSnapURLFromDB).into(displayImage3);
+                                        } else if (timetableSnapURLFromDB == null) {
+                                            Picasso.get().load(timetableURLFromDB).into(displayImage3);
                                         }
                                     }
                                 }
@@ -180,6 +198,15 @@ public class addDriverDetailsFragment extends Fragment {
             }
         });
 
+        loadImageBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, 2);
+            }
+        });
+
         snapImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -196,6 +223,17 @@ public class addDriverDetailsFragment extends Fragment {
             public void onClick(View view) {
                 if (checkPermission()) {
                     snapImage2();
+                } else {
+                    reqPermission();
+                }
+            }
+        });
+
+        snapImageBtn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkPermission()) {
+                    snapImage3();
                 } else {
                     reqPermission();
                 }
@@ -224,11 +262,14 @@ public class addDriverDetailsFragment extends Fragment {
 
                                 String uri = pref.getString("targetUri", "");
                                 String uri2 = pref.getString("targetUri2", "");
+                                String uri3 = pref.getString("targetUri3", "");
                                 String img = pref.getString("imgByte", "");
                                 String img2 = pref.getString("imgByte2", "");
+                                String img3 = pref.getString("imgByte3", "");
 
                                 drawable = displayImage.getDrawable();
                                 drawable2 = displayImage2.getDrawable();
+                                drawable3 = displayImage3.getDrawable();
 
                                 imgRef.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -239,8 +280,10 @@ public class addDriverDetailsFragment extends Fragment {
 
                                                 String drLUriFromDB = imageSnapshot.child("uriLicense").getValue(String.class);
                                                 String roTUriFromDB = imageSnapshot.child("uriRoadtax").getValue(String.class);
+                                                String ttUriFromDB = imageSnapshot.child("uriTimetable").getValue(String.class);
                                                 String drLByteFromDB = imageSnapshot.child("byteLicense").getValue(String.class);
                                                 String roTByteFromDB = imageSnapshot.child("byteRoadtax").getValue(String.class);
+                                                String ttByteFromDB = imageSnapshot.child("byteTimetable").getValue(String.class);
 
                                                 Toast msg = Toast.makeText(requireContext(), "Driver License Successfully Updated", Toast.LENGTH_SHORT);
 
@@ -258,17 +301,28 @@ public class addDriverDetailsFragment extends Fragment {
                                                         public void run() {
                                                             errorMsg2.setVisibility(View.GONE); }
                                                     }, 4000);
-                                                }else {
-                                                    if ((!uri.equals("") || !uri2.equals("")) && !uri.equals(drLUriFromDB) && !uri2.equals(roTUriFromDB)) {
+                                                } else if (drawable3 == null) {
+                                                    errorMsg3.setVisibility(View.VISIBLE);
+                                                    new Handler().postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            errorMsg3.setVisibility(View.GONE); }
+                                                    }, 4000);
+                                                } else {
+                                                    if ((!uri.equals("") || !uri2.equals("") || !uri3.equals("")) && !uri.equals(drLUriFromDB) && !uri2.equals(roTUriFromDB) &&
+                                                    !uri3.equals(ttUriFromDB)) {
                                                         detectText(targetUri, null);
                                                         saveImageToDatabase(targetUri, null, imgDid, "uriLicense");
                                                         saveImageToDatabase(targetUri2, null, imgDid, "uriRoadtax");
+                                                        saveImageToDatabase(targetUri3, null, imgDid, "uriTimetable");
                                                         msg.show();
 
-                                                    } else if ((!img.equals("") || !img2.equals("")) && !img.equals(drLByteFromDB) && !img2.equals(roTByteFromDB)) {
+                                                    } else if ((!img.equals("") || !img2.equals("") || !img3.equals("")) && !img.equals(drLByteFromDB) && !img2.equals(roTByteFromDB) &&
+                                                    !img3.equals(ttByteFromDB)) {
                                                         detectText(null, byte1);
                                                         saveImageToDatabase(null, byte1, imgDid, "byteLicense");
                                                         saveImageToDatabase(null, byte2, imgDid, "byteRoadtax");
+                                                        saveImageToDatabase(null, byte3, imgDid, "byteTimetable");
                                                         msg.show();
 
                                                     } else if ((!uri.equals("") || !img2.equals("")) && !uri.equals(drLUriFromDB) && !img2.equals(roTByteFromDB)) {
@@ -301,6 +355,11 @@ public class addDriverDetailsFragment extends Fragment {
                                                         saveImageToDatabase(null, byte2, imgDid, "byteRoadtax");
                                                         msg.show();
 
+                                                    } else if (!uri3.equals("") && !uri3.equals(ttUriFromDB)){
+                                                        saveImageToDatabase(targetUri3, null, imgDid, "uriTimetable");
+                                                        msg.show();
+                                                    } else if (!img3.equals("") && !img3.equals(ttByteFromDB)){
+                                                        saveImageToDatabase(null, byte3, imgDid, "byteTimetable");
                                                     } else {
                                                         Toast.makeText(requireContext(), "No changes found", Toast.LENGTH_SHORT).show();
 
@@ -356,6 +415,19 @@ public class addDriverDetailsFragment extends Fragment {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
+            } else if (requestCode == 2){
+                targetUri3 = data.getData();
+                Bitmap bitmap;
+                try {
+                    bitmap = BitmapFactory.decodeStream(requireContext().getContentResolver().openInputStream(targetUri3));
+                    displayImage3.setImageBitmap(bitmap);
+
+                    editor.putString("targetUri3", targetUri3.toString());
+                    editor.remove("imgByte3");
+                    editor.apply();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
             } else if (requestCode == REQUEST_IMAGE_CAPTURE) {
                 if (data != null && data.getExtras() != null) {
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
@@ -388,6 +460,22 @@ public class addDriverDetailsFragment extends Fragment {
                         editor.apply();
                     }
                 }
+            } else if (requestCode == REQUEST_IMAGE_CAPTURE3) {
+                if (data != null && data.getExtras() != null) {
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                    if (bitmap != null) {
+                        displayImage3.setImageBitmap(bitmap);
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                        byte3 = stream.toByteArray();
+                        String imgByte3 = Base64.getEncoder().encodeToString(byte3);
+
+                        editor.putString("imgByte3", imgByte3);
+                        editor.remove("targetUri3");
+                        editor.apply();
+                    }
+                }
             }
         }
     }
@@ -414,6 +502,13 @@ public class addDriverDetailsFragment extends Fragment {
         Intent snapPic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (snapPic.resolveActivity(requireContext().getPackageManager()) != null) {
             startActivityForResult(snapPic, REQUEST_IMAGE_CAPTURE2);
+        }
+    }
+
+    private void snapImage3() {
+        Intent snapPic = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (snapPic.resolveActivity(requireContext().getPackageManager()) != null) {
+            startActivityForResult(snapPic, REQUEST_IMAGE_CAPTURE3);
         }
     }
 
@@ -497,6 +592,8 @@ public class addDriverDetailsFragment extends Fragment {
             imageName = "license";
         } else if (uriKey.equals("uriRoadtax") || uriKey.equals("byteRoadtax")) {
             imageName = "road_tax";
+        } else if (uriKey.equals("uriTimetable") || uriKey.equals("byteTimetable")) {
+            imageName = "timetable";
         } else {
             imageName = "";
         }
@@ -540,6 +637,12 @@ public class addDriverDetailsFragment extends Fragment {
                                 childRef.child("roadtaxByte").removeValue();
                                 childRef.child("byteRoadtax").removeValue();
 
+                            } else if (uriKey.equals("uriTimetable") && imageByte == null){
+                                childRef.child("timetableUrl").setValue(downloadUrl.toString());
+                                childRef.child(uriKey).setValue(imageUri.toString());
+
+                                childRef.child("timetableByte").removeValue();
+                                childRef.child("byteTimetable").removeValue();
                             } else if (uriKey.equals("byteLicense") && imageUri == null) {
                                 childRef.child("licenseByte").setValue(downloadUrl.toString());
                                 String imgByte = Base64.getEncoder().encodeToString(imageByte);
@@ -555,6 +658,13 @@ public class addDriverDetailsFragment extends Fragment {
 
                                 childRef.child("roadtaxUrl").removeValue();
                                 childRef.child("uriRoadtax").removeValue();
+                            } else if (uriKey.equals("byteTimetable") && imageUri == null) {
+                                childRef.child("timetableByte").setValue(downloadUrl.toString());
+                                String imgByte3 = Base64.getEncoder().encodeToString(imageByte);
+                                childRef.child(uriKey).setValue(imgByte3);
+
+                                childRef.child("timetableUrl").removeValue();
+                                childRef.child("uriTimetable").removeValue();
                             }
                         }
                     }).addOnFailureListener(new OnFailureListener() {
