@@ -42,4 +42,7 @@
     <string name="empty_app">You do not have any appointment for right now</string>
     <string name="choice1">Yours</string>
     <string name="choice2">Customer\'s</string>
+    <string name="view_schedule">View your driver\'s schedule</string>
+    <string name="driver_list">Search Driver</string>
+    <string name="driver_schedule">Schedule</string>
 </resources>
