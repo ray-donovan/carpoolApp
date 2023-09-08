@@ -17,6 +17,11 @@
         <entry key="..\:/Users/HuiShi/AndroidStudioProjects/Carpool/app/src/main/res/layout/fragment_edit_driver_profile.xml" value="0.264" />
         <entry key="..\:/Users/HuiShi/AndroidStudioProjects/Carpool/app/src/main/res/layout/fragment_edit_profile.xml" value="0.264" />
         <entry key="..\:/Users/HuiShi/AndroidStudioProjects/Carpool/app/src/main/res/layout/fragment_prompt_user_to_login.xml" value="0.2545289855072464" />
+        <entry key="..\:/Users/HuiShi/carpoolApp/app/src/main/res/layout/activity_login.xml" value="0.17255434782608695" />
+        <entry key="..\:/Users/HuiShi/carpoolApp/app/src/main/res/layout/fragment_account.xml" value="0.15353260869565216" />
+        <entry key="..\:/Users/HuiShi/carpoolApp/app/src/main/res/layout/fragment_add_driver_details.xml" value="0.15806159420289856" />
+        <entry key="..\:/Users/HuiShi/carpoolApp/app/src/main/res/layout/fragment_add_driver_details_land.xml" value="0.15806159420289856" />
+        <entry key="..\:/Users/HuiShi/carpoolApp/app/src/main/res/layout/fragment_edit_driver_profile.xml" value="0.4" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/custom_button.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/driver_dialog.xml" value="0.1680921052631579" />
         <entry key="..\:/Users/User/UTAR/Degree/Year 3/Sem 1/UCCD3223 MOBILE APPLICATIONS DEVELOPMENT/Carpool/carpoolApp/app/src/main/res/drawable/ic_baseline_gender_24.xml" value="0.26614583333333336" />
@@ -54,7 +59,13 @@
       </map>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+||||||| f1e9587
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+=======
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+>>>>>>> b93d69c899753928fe4b64ce15f93b3433e4973f
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

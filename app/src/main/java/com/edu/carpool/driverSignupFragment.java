@@ -21,7 +21,7 @@ public class driverSignupFragment extends Fragment {
 
     private EditText identityNum, studentID, plateNum, model, colour;
     private Button signUpBtn;
-    private String icRegex, studentIDRegex, carModelAllUpper, carColourAllUpper, formattedCarPlate;
+    private String icRegex, studentIDRegex, carModelAllUpper, carColourAllUpper, formattedCarPlate, finalCarPlate;
     private driverModelClass driverData;
     private DatabaseReference dbReference;
     private boolean hasError = false;
@@ -55,7 +55,7 @@ public class driverSignupFragment extends Fragment {
 
                 hasError = false;
 
-                String IcNum = identityNum.getText().toString();
+                String IcNum = identityNum.getText().toString().trim();
                 if(IcNum.isEmpty()) {
                     identityNum.setError("Required");
                     hasError = true;
@@ -64,7 +64,7 @@ public class driverSignupFragment extends Fragment {
                     hasError = true;
                 }
 
-                String studID = studentID.getText().toString();
+                String studID = studentID.getText().toString().trim();
                 if(studID.isEmpty()) {
                     studentID.setError("Required");
                     hasError = true;
@@ -73,15 +73,17 @@ public class driverSignupFragment extends Fragment {
                     hasError = true;
                 }
 
-                String carPlate = plateNum.getText().toString();
+                String carPlate = plateNum.getText().toString().trim();
                 if(carPlate.isEmpty()) {
                     plateNum.setError("Required");
                     hasError = true;
                 } else {
                     formattedCarPlate = carPlate.toUpperCase();
+                    finalCarPlate = formattedCarPlate.replaceAll("([a-zA-Z])(\\d)", "$1 $2")
+                            .replaceAll("(\\d)([a-zA-Z])", "$1 $2");
                 }
 
-                String carModel = model.getText().toString();
+                String carModel = model.getText().toString().trim();
                 if(carModel.isEmpty()) {
                     model.setError("Required");
                     hasError = true;
@@ -89,7 +91,7 @@ public class driverSignupFragment extends Fragment {
                     carModelAllUpper = capitalizeFirst(carModel);
                 }
 
-                String carColour = colour.getText().toString();
+                String carColour = colour.getText().toString().trim();
                 if(carColour.isEmpty()) {
                     colour.setError("Required");
                     hasError = true;
@@ -101,7 +103,7 @@ public class driverSignupFragment extends Fragment {
                     Toast.makeText(requireContext(), "Invalid data exists.", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    driverData = new driverModelClass(IcNum, studID, formattedCarPlate, carModelAllUpper, carColourAllUpper);
+                    driverData = new driverModelClass(IcNum, studID, finalCarPlate, carModelAllUpper, carColourAllUpper);
 
                     DatabaseReference driverReference = dbReference.child("driverID").push();
                     driverReference.setValue(driverData);

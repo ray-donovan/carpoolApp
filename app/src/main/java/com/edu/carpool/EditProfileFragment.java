@@ -112,8 +112,11 @@ public class EditProfileFragment extends Fragment {
                             if(snapshot.exists()) {
 
                                 if (!Name.equals(accName.getText().toString().trim())) {
-                                    dbReference.child("name").setValue(accName.getText().toString());
+                                    dbReference.child("name").setValue(capitalizeFirstLetter(accName.getText().toString()));
                                     changesDetected = true;
+                                } else if (Name.isEmpty()) {
+                                    accName.setError("Required");
+                                    hasError = true;
                                 }
 
                                 if (!Gender.equals(autoCompleteTextView.getText().toString().trim())) {
@@ -156,4 +159,24 @@ public class EditProfileFragment extends Fragment {
 
         return rootView;
     }
+
+    public String capitalizeFirstLetter(String input) {
+
+        StringBuilder result = new StringBuilder(input.length());
+        boolean capitalizeNext = true;
+
+        for (char c : input.toCharArray()) {
+            if (Character.isWhitespace(c)) {
+                capitalizeNext = true;
+            } else if (capitalizeNext) {
+                c = Character.toUpperCase(c);
+                capitalizeNext = false;
+            }
+
+            result.append(c);
+        }
+
+        return result.toString();
+    }
+
 }

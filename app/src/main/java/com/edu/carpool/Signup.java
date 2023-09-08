@@ -46,9 +46,9 @@ public class Signup extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                String name = signupName.getText().toString();
-                String email = signupEmail.getText().toString();
-                String password = signupPassword.getText().toString();
+                String name = signupName.getText().toString().trim();
+                String email = signupEmail.getText().toString().trim();
+                String password = signupPassword.getText().toString().trim();
 
                 if (name.isEmpty()) {
                     signupName.setError("Required");
@@ -72,7 +72,7 @@ public class Signup extends AppCompatActivity {
                                 public void onComplete(@NotNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        saveUserDataToDatabase(user.getUid(), name, email, password);
+                                        saveUserDataToDatabase(user.getUid(), capitalizeFirstLetter(name), email, password);
                                     } else {
                                         if (task.getException() != null) {
                                             String errorMessage = task.getException().getMessage();
@@ -115,4 +115,24 @@ public class Signup extends AppCompatActivity {
         Intent intent = new Intent(Signup.this, Login.class);
         startActivity(intent);
     }
+
+    public String capitalizeFirstLetter(String input) {
+
+        StringBuilder result = new StringBuilder(input.length());
+        boolean capitalizeNext = true;
+
+        for (char c : input.toCharArray()) {
+            if (Character.isWhitespace(c)) {
+                capitalizeNext = true;
+            } else if (capitalizeNext) {
+                c = Character.toUpperCase(c);
+                capitalizeNext = false;
+            }
+
+            result.append(c);
+        }
+
+        return result.toString();
+    }
+
 }
