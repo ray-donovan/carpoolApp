@@ -103,17 +103,19 @@ public class editDriverProfileFragment extends Fragment {
                                     String driverId = driverSnapshot.getKey();
                                     DatabaseReference childRef = userRef.child(driverId);
 
-                                    String carPlate = plateNum.getText().toString();
+                                    String carPlate = plateNum.getText().toString().trim();
                                     String carPlateFormatted = carPlate.toUpperCase();
+                                    String finalCarPlate = carPlateFormatted.replaceAll("([a-zA-Z])(\\d)", "$1 $2")
+                                            .replaceAll("(\\d)([a-zA-Z])", "$1 $2");
                                     if (carPlate.isEmpty()) {
                                         plateNum.setError("Required");
                                         hasError = true;
-                                    } else if (!carPlateFormatted.equals(plateNumFromDB)) {
-                                        childRef.child("carPlateNum").setValue(carPlateFormatted);
+                                    } else if (!finalCarPlate.equals(plateNumFromDB)) {
+                                        childRef.child("carPlateNum").setValue(finalCarPlate);
                                         changesDetected = true;
                                     }
 
-                                    String carModel = model.getText().toString();
+                                    String carModel = model.getText().toString().trim();
                                     String carModelFormatted = capitalizeFirst(carModel);
                                     if (carModel.isEmpty()) {
                                         model.setError("Required");
@@ -123,7 +125,7 @@ public class editDriverProfileFragment extends Fragment {
                                         changesDetected = true;
                                     }
 
-                                    String carColour = colour.getText().toString();
+                                    String carColour = colour.getText().toString().trim();
                                     String carColourFormatted = capitalizeFirst(carColour);
                                     if (carColour.isEmpty()) {
                                         colour.setError("Required");

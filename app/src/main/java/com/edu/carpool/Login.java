@@ -42,8 +42,8 @@ public class Login extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = loginEmail.getText().toString();
-                String password = loginPassword.getText().toString();
+                String email = loginEmail.getText().toString().trim();
+                String password = loginPassword.getText().toString().trim();
 
                 if (email.isEmpty()) {
                     loginEmail.setError("Required");
