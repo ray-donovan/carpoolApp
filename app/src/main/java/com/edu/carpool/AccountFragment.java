@@ -196,14 +196,6 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        addEmergencyFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(requireActivity(), emergencyContact.class);
-                startActivity(intent);
-            }
-        });
-
         driverSignupFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
