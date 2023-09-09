@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.Touch;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,7 @@ public class ScheduleFragment extends Fragment implements DriverRecyclerViewInte
     ImageView iv_schedule, profilePic;
     ConstraintLayout get_driver_layout, selected_driver_layout;
     TextView tv_driver_selected_name, tv_get_driver, tv_nan;
+    TouchImageView imageView;
 
     ArrayList<driverModelClass> driverModels = new ArrayList<>();
     ArrayList<UserModelClass> userModels = new ArrayList<>();
@@ -56,6 +58,7 @@ public class ScheduleFragment extends Fragment implements DriverRecyclerViewInte
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_schedule, container, false);
+        imageView = new TouchImageView(getContext());
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -115,11 +118,13 @@ public class ScheduleFragment extends Fragment implements DriverRecyclerViewInte
                 //Dialog dialog = new Dialog(getContext());
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setCanceledOnTouchOutside(true);
-                TouchImageView imageView = new TouchImageView(getContext());
-                imageView.setImageResource(R.drawable.sample_schedule);
+                if (imageView.getParent() != null){
+                    ((ViewGroup)imageView.getParent()).removeView(imageView);
+                }
                 dialog.setView(imageView, 0,0,0,0);
                 dialog.show();
                 dialog.getWindow().getDecorView().setBackgroundResource(android.R.color.transparent);
+
             }
         });
         return view;
@@ -228,13 +233,19 @@ public class ScheduleFragment extends Fragment implements DriverRecyclerViewInte
                                     for (DataSnapshot imageSnapshot : snapshot.getChildren()) {
                                         String timetableURLFromDB = imageSnapshot.child("timetableUrl").getValue(String.class);
                                         String timetableSnapURLFromDB = imageSnapshot.child("timetableByte").getValue(String.class);
-                                        if (timetableURLFromDB == null){
-                                            iv_schedule.setVisibility(View.GONE);
-                                            tv_nan.setVisibility(View.VISIBLE);
-                                        } else {
+                                        if (timetableURLFromDB == null && timetableSnapURLFromDB != null){
+                                            iv_schedule.setVisibility(View.VISIBLE);
+                                            tv_nan.setVisibility(View.GONE);
+                                            Picasso.get().load(timetableSnapURLFromDB).into(iv_schedule);
+                                            Picasso.get().load(timetableSnapURLFromDB).into(imageView);
+                                        } else if (timetableURLFromDB != null && timetableSnapURLFromDB == null) {
                                             iv_schedule.setVisibility(View.VISIBLE);
                                             tv_nan.setVisibility(View.GONE);
                                             Picasso.get().load(timetableURLFromDB).into(iv_schedule);
+                                            Picasso.get().load(timetableURLFromDB).into(imageView);
+                                        } else {
+                                            iv_schedule.setVisibility(View.GONE);
+                                            tv_nan.setVisibility(View.VISIBLE);
                                         }
                                     }
                                 } else {
