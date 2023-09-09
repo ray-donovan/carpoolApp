@@ -17,6 +17,17 @@
         tools:replace="android:label"
         android:theme="@style/Theme.Carpool">
         <activity
+            android:name=".firebaseStorage"
+            android:exported="false" />
+        <activity
+            android:name=".firebaseintro"
+            android:exported="false"/>
+        <activity
+            android:name=".manageContact"
+            android:exported="false"/>
+        <activity android:name=".emergencyContact"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false" />
