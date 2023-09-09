@@ -151,9 +151,14 @@ public class ScheduleFragment extends Fragment implements DriverRecyclerViewInte
                                 String carModel = driverInnerInfo.child("carModel").getValue(String.class);
                                 String carColour = driverInnerInfo.child("carColour").getValue(String.class);
                                 String carPlate = driverInnerInfo.child("carPlateNum").getValue(String.class);
+                                String driverStatus = driverInnerInfo.child("driverStatus").getValue(String.class);
 
-                                userModels.add(new UserModelClass(id, name, gender, phoneNum, null, null));
-                                driverModels.add(new driverModelClass(null, null, carPlate, carModel, carColour));
+                                if ("Available".equals(driverStatus) || driverStatus == null){
+                                    userModels.add(new UserModelClass(id, name, gender, phoneNum, null, null));
+                                    driverModels.add(new driverModelClass(null, null, carPlate, carModel, carColour, driverStatus));
+                                } else if ("Not available".equals(driverStatus)){
+                                    // Not available so dont add to the array list
+                                }
                             }
                             break;
                         }

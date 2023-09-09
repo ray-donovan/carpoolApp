@@ -46,4 +46,8 @@
     <string name="driver_list">Search Driver</string>
     <string name="driver_schedule">Schedule</string>
     <string name = "nan">Not Available</string>
+    <string-array name="driver_status">
+        <item>Available</item>
+        <item>Not available</item>
+    </string-array>
 </resources>

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.ScrollingTabContainerView;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
@@ -13,8 +15,12 @@ import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +33,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+
 public class AccountFragment extends Fragment {
 
     private TextView accName, accGender, accPhoneNum, badge, carNum, carModel, carColour;
     private CardView driverCV;
-    private String carNumFromDB, carModelFromDB, carColourFromDB;
+    private String carNumFromDB, carModelFromDB, carColourFromDB, driver_status;
     private ImageView profilePic;
     private FloatingActionButton manageFab, logoutFab, driverSignupFab, addEmergencyFab, editProfileFab, editDriverFab, appointmentFab;
     private TextView logoutActionText, driverSignupActionText, addEmergencyActionText, editProfileActionText, editDriverActionText, appointmentActionText;
@@ -40,13 +48,31 @@ public class AccountFragment extends Fragment {
     private Bundle bundle;
     private FirebaseAuth mAuth;
     private ProgressBar loadingSpinner;
-    private DatabaseReference userRef;
+    private Spinner driverStatus1;
+    private DatabaseReference userRef, statusRef, mStatusRef, mmStatusRef;
+    private AppCompatImageView attending_view;
+    private LinearLayout attending_layout;
+    private boolean mSpinnerInitialized;
+    private int index_of_cat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_account, container, false);
+
+        attending_view = rootView.findViewById(R.id.attending_view);
+        driverStatus1 = rootView.findViewById(R.id.spinner_driver_status);
+        attending_layout = rootView.findViewById(R.id.attending_layout);
+
+        attending_view.setVisibility(View.GONE);
+        attending_layout.setVisibility(View.GONE);
+
+        String[] driverStatus = getResources().getStringArray(R.array.driver_status);
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), R.layout.spinner_drop_down, driverStatus);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        driverStatus1.setAdapter(adapter);
 
         // To validate user is logged-in or not
         mAuth = FirebaseAuth.getInstance();
@@ -128,7 +154,6 @@ public class AccountFragment extends Fragment {
                     editDriverActionText.setVisibility(View.VISIBLE);
                     appointmentFab.show();
                     appointmentActionText.setVisibility(View.VISIBLE);
-
                 } else {
                     driverSignupFab.show();
                     driverSignupActionText.setVisibility(View.VISIBLE);
@@ -227,6 +252,59 @@ public class AccountFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
+
+        driverStatus1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!mSpinnerInitialized){
+                    mSpinnerInitialized = true;
+                    return;
+                }
+                FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
+                String userId = User.getUid();
+                mStatusRef = FirebaseDatabase.getInstance().getReference("users").child(userId).child("driverID");
+                mStatusRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot snapshot) {
+                        if (snapshot.exists()){
+                            for (DataSnapshot driverSnapshot : snapshot.getChildren()){
+                                String mDriverStatus = driverSnapshot.child("driverStatus").getValue(String.class);
+                                mmStatusRef = mStatusRef.child(driverSnapshot.getKey());
+                                mmStatusRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        if (snapshot.exists()){
+                                            if (i == 0){ // Available
+                                                mmStatusRef.child("driverStatus").setValue("Available");
+                                            } else if (i == 1){ // Not available
+                                                mmStatusRef.child("driverStatus").setValue("Not available");
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+
+                    }
+                });
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
         return rootView;
     }
 
@@ -303,13 +381,39 @@ public class AccountFragment extends Fragment {
                     if (snapshot.exists()) {
                         badge.setVisibility(View.VISIBLE);
                         driverCV.setVisibility(View.VISIBLE);
+                        attending_view.setVisibility(View.VISIBLE);
+                        attending_layout.setVisibility(View.VISIBLE);
 
                         for (DataSnapshot driverSnapshot : snapshot.getChildren()) {
 
                             carNumFromDB = driverSnapshot.child("carPlateNum").getValue(String.class);
                             carModelFromDB = driverSnapshot.child("carModel").getValue(String.class);
                             carColourFromDB = driverSnapshot.child("carColour").getValue(String.class);
+                            driver_status = driverSnapshot.child("driverStatus").getValue(String.class);
 
+                            if (driver_status == null){
+                                index_of_cat = 0;
+                                statusRef = userRef.child(driverSnapshot.getKey());
+                                statusRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot snapshot) {
+                                        if (snapshot.exists()){
+                                            statusRef.child("driverStatus").setValue("Available");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError error) {
+
+                                    }
+                                });
+                            } else if ("Available".equals(driver_status)){
+                                index_of_cat = 0;
+                            } else if ("Not available".equals(driver_status)){
+                                index_of_cat = 1;
+                            }
+
+                            driverStatus1.setSelection(index_of_cat);
                             carNum.setText(carNumFromDB);
                             carModel.setText(carModelFromDB);
                             carColour.setText(carColourFromDB);

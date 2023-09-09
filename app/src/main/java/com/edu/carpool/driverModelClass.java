@@ -2,15 +2,24 @@ package com.edu.carpool;
 
 public class driverModelClass {
 
-    String IC, StudentID, carPlateNum, carModel, carColour;
+    String IC, StudentID, carPlateNum, carModel, carColour, driverStatus;
 
-    public driverModelClass(String IC, String StudentID, String carPlateNum, String carModel, String carColour) {
+    public driverModelClass(String IC, String StudentID, String carPlateNum, String carModel, String carColour, String driverStatus) {
 
         this.IC = IC;
         this.StudentID = StudentID;
         this.carPlateNum = carPlateNum;
         this.carModel = carModel;
         this.carColour = carColour;
+        this.driverStatus = driverStatus;
+    }
+
+    public String getDriverStatus() {
+        return driverStatus;
+    }
+
+    public void setDriverStatus(String driverStatus) {
+        this.driverStatus = driverStatus;
     }
 
     public String getIC() {

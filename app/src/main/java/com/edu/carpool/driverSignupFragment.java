@@ -103,7 +103,9 @@ public class driverSignupFragment extends Fragment {
                     Toast.makeText(requireContext(), "Invalid data exists.", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    driverData = new driverModelClass(IcNum, studID, finalCarPlate, carModelAllUpper, carColourAllUpper);
+                    // Default value for driver status is available
+                    String driverStatus = "Available";
+                    driverData = new driverModelClass(IcNum, studID, finalCarPlate, carModelAllUpper, carColourAllUpper, driverStatus);
 
                     DatabaseReference driverReference = dbReference.child("driverID").push();
                     driverReference.setValue(driverData);

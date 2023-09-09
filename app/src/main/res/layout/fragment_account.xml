@@ -194,6 +194,51 @@
                                     android:textSize="18sp" />
                             </LinearLayout>
 
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:visibility = "visible"
+                                android:id = "@+id/attending_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_margin="8dp"
+                                android:alpha="0.5"
+                                android:background="@color/moderate_blue" />
+
+                            <LinearLayout
+                                android:visibility = "visible"
+                                android:id = "@+id/attending_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:weightSum = "5"
+                                android:layout_marginBottom = "8dp"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginStart="8dp"
+                                android:orientation="vertical"
+                                android:padding="0dp">
+
+                                <TextView
+                                    android:id="@+id/attending_tv"
+                                    android:gravity = "center"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Driver status"
+                                    android:textColor="@color/dark_moderate_blue"
+                                    android:textSize="18sp" />
+
+                                <Spinner
+                                    style = "@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                                    android:id="@+id/spinner_driver_status"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:padding = "0dp"
+                                    android:gravity = "end"
+                                    android:layout_gravity = "center"
+                                    android:textColor = "@color/dark_moderate_blue"
+                                    android:textSize = "18sp" />
+
+
+                            </LinearLayout>
+
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
