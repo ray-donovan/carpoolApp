@@ -215,6 +215,14 @@ public class AccountFragment extends Fragment {
             }
         });
 
+        addEmergencyFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireActivity(), emergencyContact.class);
+                startActivity(intent);
+            }
+        });
+
         editProfileFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

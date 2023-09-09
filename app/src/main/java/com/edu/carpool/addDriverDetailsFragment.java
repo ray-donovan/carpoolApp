@@ -285,32 +285,35 @@ public class addDriverDetailsFragment extends Fragment {
                                                 String roTByteFromDB = imageSnapshot.child("byteRoadtax").getValue(String.class);
                                                 String ttByteFromDB = imageSnapshot.child("byteTimetable").getValue(String.class);
 
-                                                Toast msg = Toast.makeText(requireContext(), "Driver License Successfully Updated", Toast.LENGTH_SHORT);
+                                                Toast msg = Toast.makeText(requireContext(), "Successfully Updated", Toast.LENGTH_SHORT);
 
                                                 if (drawable == null) {
                                                     errorMsg.setVisibility(View.VISIBLE);
                                                     new Handler().postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            errorMsg.setVisibility(View.GONE); }
+                                                            errorMsg.setVisibility(View.GONE);
+                                                        }
                                                     }, 4000);
                                                 } else if (drawable2 == null) {
                                                     errorMsg2.setVisibility(View.VISIBLE);
                                                     new Handler().postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            errorMsg2.setVisibility(View.GONE); }
+                                                            errorMsg2.setVisibility(View.GONE);
+                                                        }
                                                     }, 4000);
                                                 } else if (drawable3 == null) {
                                                     errorMsg3.setVisibility(View.VISIBLE);
                                                     new Handler().postDelayed(new Runnable() {
                                                         @Override
                                                         public void run() {
-                                                            errorMsg3.setVisibility(View.GONE); }
+                                                            errorMsg3.setVisibility(View.GONE);
+                                                        }
                                                     }, 4000);
                                                 } else {
                                                     if ((!uri.equals("") || !uri2.equals("") || !uri3.equals("")) && !uri.equals(drLUriFromDB) && !uri2.equals(roTUriFromDB) &&
-                                                    !uri3.equals(ttUriFromDB)) {
+                                                            !uri3.equals(ttUriFromDB)) {
                                                         detectText(targetUri, null);
                                                         saveImageToDatabase(targetUri, null, imgDid, "uriLicense");
                                                         saveImageToDatabase(targetUri2, null, imgDid, "uriRoadtax");
@@ -318,7 +321,7 @@ public class addDriverDetailsFragment extends Fragment {
                                                         msg.show();
 
                                                     } else if ((!img.equals("") || !img2.equals("") || !img3.equals("")) && !img.equals(drLByteFromDB) && !img2.equals(roTByteFromDB) &&
-                                                    !img3.equals(ttByteFromDB)) {
+                                                            !img3.equals(ttByteFromDB)) {
                                                         detectText(null, byte1);
                                                         saveImageToDatabase(null, byte1, imgDid, "byteLicense");
                                                         saveImageToDatabase(null, byte2, imgDid, "byteRoadtax");
@@ -355,10 +358,10 @@ public class addDriverDetailsFragment extends Fragment {
                                                         saveImageToDatabase(null, byte2, imgDid, "byteRoadtax");
                                                         msg.show();
 
-                                                    } else if (!uri3.equals("") && !uri3.equals(ttUriFromDB)){
+                                                    } else if (!uri3.equals("") && !uri3.equals(ttUriFromDB)) {
                                                         saveImageToDatabase(targetUri3, null, imgDid, "uriTimetable");
                                                         msg.show();
-                                                    } else if (!img3.equals("") && !img3.equals(ttByteFromDB)){
+                                                    } else if (!img3.equals("") && !img3.equals(ttByteFromDB)) {
                                                         saveImageToDatabase(null, byte3, imgDid, "byteTimetable");
                                                     } else {
                                                         Toast.makeText(requireContext(), "No changes found", Toast.LENGTH_SHORT).show();
@@ -370,13 +373,15 @@ public class addDriverDetailsFragment extends Fragment {
                                     }
 
                                     @Override
-                                    public void onCancelled(DatabaseError error) {}
+                                    public void onCancelled(DatabaseError error) {
+                                    }
                                 });
                             }
                         }
 
                         @Override
-                        public void onCancelled(DatabaseError error) {}
+                        public void onCancelled(DatabaseError error) {
+                        }
                     });
                 }
             }
@@ -415,7 +420,7 @@ public class addDriverDetailsFragment extends Fragment {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-            } else if (requestCode == 2){
+            } else if (requestCode == 2) {
                 targetUri3 = data.getData();
                 Bitmap bitmap;
                 try {
@@ -525,7 +530,6 @@ public class addDriverDetailsFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         if (image != null) {
             TextRecognizer recognizer = TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS);
             Task<Text> result = recognizer.process(image)
@@ -542,6 +546,7 @@ public class addDriverDetailsFragment extends Fragment {
 
                                 Date currentDate = new Date(); //get current date
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
                                 while (matcher.find()) {
                                     String date = matcher.group();
                                     String dateform = dateFormat.format(currentDate);
@@ -553,22 +558,31 @@ public class addDriverDetailsFragment extends Fragment {
                                         if (date1.before(date2)) {
                                             show.setVisibility(View.VISIBLE);
                                             show.setText("Valid license!");
+
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    show.setVisibility(View.GONE);
+                                                }
+                                            }, 8000);
                                         } else if (date1.after(date2)) {
                                             show.setVisibility(View.VISIBLE);
                                             show.setText("Invalid license! Exceed: " + date);
+
+                                            Toast toast = Toast.makeText(requireContext(), "Check license! Update if invalid.", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    toast.cancel(); // This will hide the toast
+                                                }
+                                            }, 4000);
                                         } else {
                                             show.setVisibility(View.INVISIBLE);
                                         }
                                     } catch (ParseException e) {
                                         e.printStackTrace();
                                     }
-
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            show.setVisibility(View.GONE);
-                                        }
-                                    }, 4000);
                                 }
                             }
                         }
@@ -637,7 +651,7 @@ public class addDriverDetailsFragment extends Fragment {
                                 childRef.child("roadtaxByte").removeValue();
                                 childRef.child("byteRoadtax").removeValue();
 
-                            } else if (uriKey.equals("uriTimetable") && imageByte == null){
+                            } else if (uriKey.equals("uriTimetable") && imageByte == null) {
                                 childRef.child("timetableUrl").setValue(downloadUrl.toString());
                                 childRef.child(uriKey).setValue(imageUri.toString());
 
