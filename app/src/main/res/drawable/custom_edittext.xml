@@ -8,12 +8,22 @@
         </shape>
     </item>
 
+    <item android:state_focused="true">
+        <shape>
+            <stroke
+                android:width="2.3dp"
+                android:color="@color/dark_moderate_blue" />
+            <corners
+                android:radius="20dp" />
+        </shape>
+    </item>
+
     <!-- Default-->
     <item>
         <shape>
             <stroke
                 android:width="2dp"
-                android:color="@color/moderate_blue" />
+                android:color="@color/gray" />
             <corners
                 android:radius="20dp" />
         </shape>
